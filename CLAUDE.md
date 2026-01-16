@@ -15,5 +15,4 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 Python 프로젝트입니다. 현재 초기 설정 단계입니다.
 
 ## 개발 환경
-
-Python 프로젝트 - .gitignore에서 지원 도구 확인 가능 (pytest, mypy, ruff, poetry/uv/pipenv).
+TBD
