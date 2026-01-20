@@ -8,6 +8,6 @@ export const siteConfig: SiteConfig = {
   ogImage: "https://example.com/og.jpg",
   links: {
     github: "https://github.com/your-username/your-repo",
-    twitter: "https://twitter.com/your-username",
+    linkedin: "https://linkedin.com/in/your-username",
   },
 };

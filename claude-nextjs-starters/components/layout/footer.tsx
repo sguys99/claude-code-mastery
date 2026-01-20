@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Github, Twitter } from "lucide-react";
+import { Github, Linkedin } from "lucide-react";
 import { Logo } from "@/components/shared/logo";
 import { Separator } from "@/components/ui/separator";
 import { siteConfig } from "@/config/site";
@@ -28,15 +28,15 @@ export function Footer() {
                 <Github className="h-5 w-5" />
                 <span className="sr-only">GitHub</span>
               </a>
-              {siteConfig.links.twitter && (
+              {siteConfig.links.linkedin && (
                 <a
-                  href={siteConfig.links.twitter}
+                  href={siteConfig.links.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-muted-foreground hover:text-foreground transition-colors"
                 >
-                  <Twitter className="h-5 w-5" />
-                  <span className="sr-only">Twitter</span>
+                  <Linkedin className="h-5 w-5" />
+                  <span className="sr-only">LinkedIn</span>
                 </a>
               )}
             </div>
