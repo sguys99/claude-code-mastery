@@ -50,7 +50,8 @@ const features = [
 // 기능 소개 섹션 컴포넌트
 export function FeaturesSection() {
   return (
-    <section className="container py-24 bg-muted/50">
+    <section className="w-full bg-muted/50">
+      <div className="container py-24">
       <div className="text-center mb-16">
         <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
           스타터킷 특징
@@ -76,6 +77,7 @@ export function FeaturesSection() {
             </CardContent>
           </Card>
         ))}
+      </div>
       </div>
     </section>
   );
