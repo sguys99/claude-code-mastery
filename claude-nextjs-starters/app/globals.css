@@ -120,6 +120,10 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans;
+  }
+  /* container 중앙 정렬 및 패딩 설정 */
+  .container {
+    @apply mx-auto px-4 sm:px-6 lg:px-8;
   }
 }

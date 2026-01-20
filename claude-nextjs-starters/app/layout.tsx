@@ -15,7 +15,7 @@ const inter = Inter({
 // 한글 폰트: Noto Sans KR
 const notoSansKR = Noto_Sans_KR({
   variable: "--font-noto-sans-kr",
-  subsets: ["latin"],
+  subsets: ["latin", "korean"],
   weight: ["400", "500", "700"],
   display: "swap",
 });
@@ -45,7 +45,7 @@ export default function RootLayout({
     // suppressHydrationWarning: next-themes 하이드레이션 경고 방지
     <html lang="ko" suppressHydrationWarning>
       <body
-        className={`${inter.variable} ${notoSansKR.variable} antialiased`}
+        className={`${inter.variable} ${notoSansKR.variable} antialiased font-sans`}
       >
         <ThemeProvider
           attribute="class"
