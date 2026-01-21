@@ -29,3 +29,10 @@ export interface PageHeaderProps {
   title: string;
   description?: string;
 }
+
+// 푸터 네비게이션 설정 타입
+export interface FooterNavConfig {
+  product: NavItem[];
+  company: NavItem[];
+  legal: NavItem[];
+}
