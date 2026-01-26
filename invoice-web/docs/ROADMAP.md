@@ -32,11 +32,16 @@
 
    - 작업 파일의 명세서를 따름
    - 기능과 기능성 구현
-   - **API 연동 및 비즈니스 로직 구현 시 Playwright MCP로 테스트 수행 필수**
    - 각 단계 후 작업 파일 내 단계 진행 상황 업데이트
-   - 구현 완료 후 Playwright MCP를 사용한 E2E 테스트 실행
-   - 테스트 통과 확인 후 다음 단계로 진행
    - 각 단계 완료 후 중단하고 추가 지시를 기다림
+
+   **🔴 필수: Playwright MCP 테스트 수행**
+   - 구현 완료 후 **반드시** Playwright MCP로 테스트 수행
+   - `browser_navigate` → `browser_snapshot` → 기능 테스트 → 결과 검증
+   - API 연동 시: `browser_network_requests`로 호출 확인
+   - 에러 확인: `browser_console_messages`로 콘솔 에러 없음 검증
+   - **테스트 통과 전까지 작업 완료로 간주하지 않음**
+   - 테스트 실패 시: 원인 분석 → 수정 → 재테스트 → 통과 확인
 
 4. **로드맵 업데이트**
 
@@ -188,6 +193,100 @@
 - **PDF**: react-to-pdf 또는 jsPDF + html2canvas
 - **Validation**: Zod 4.x
 - **Deployment**: Vercel
+
+---
+
+## 🧪 Playwright MCP 테스트 가이드
+
+구현 완료 후 **반드시** Playwright MCP를 사용하여 테스트를 수행해야 합니다.
+
+### 📌 필수 테스트 원칙
+
+1. **모든 구현은 테스트로 검증**: 코드 작성 후 반드시 Playwright MCP로 동작 확인
+2. **Happy Path + Edge Case**: 정상 케이스와 예외 상황 모두 테스트
+3. **테스트 실패 시 수정 필수**: 테스트 통과 전까지 구현 완료로 간주하지 않음
+
+### 🔧 Playwright MCP 주요 도구
+
+| 도구 | 용도 | 예시 |
+|------|------|------|
+| `browser_navigate` | URL로 이동 | 페이지 로드 테스트 |
+| `browser_snapshot` | 현재 페이지 상태 캡처 | UI 렌더링 확인 |
+| `browser_click` | 요소 클릭 | 버튼, 링크 동작 테스트 |
+| `browser_type` | 텍스트 입력 | 폼 입력 테스트 |
+| `browser_fill_form` | 폼 필드 채우기 | 폼 제출 테스트 |
+| `browser_wait_for` | 특정 텍스트/시간 대기 | 비동기 동작 대기 |
+| `browser_console_messages` | 콘솔 메시지 확인 | 에러 로그 검증 |
+| `browser_network_requests` | 네트워크 요청 확인 | API 호출 검증 |
+
+### 📋 API 연동 테스트 체크리스트
+
+- [ ] API 엔드포인트 호출 성공 확인
+- [ ] 응답 데이터가 UI에 올바르게 렌더링되는지 확인
+- [ ] 로딩 상태 표시 확인
+- [ ] 에러 응답 시 적절한 에러 메시지 표시 확인
+- [ ] 네트워크 요청 확인 (`browser_network_requests`)
+- [ ] 콘솔 에러 없음 확인 (`browser_console_messages`)
+
+### 📋 비즈니스 로직 테스트 체크리스트
+
+- [ ] 사용자 입력값 검증 (유효/무효 입력)
+- [ ] 계산 로직 결과값 검증
+- [ ] 상태 변경 후 UI 업데이트 확인
+- [ ] 권한에 따른 접근 제어 확인
+- [ ] 데이터 CRUD 동작 확인
+
+### 🔄 테스트 수행 프로세스
+
+1. **페이지 로드 테스트**
+   - `browser_navigate`로 대상 페이지 이동
+   - `browser_snapshot`으로 초기 상태 확인
+
+2. **기능 동작 테스트**
+   - `browser_click`, `browser_type` 등으로 사용자 동작 시뮬레이션
+   - `browser_wait_for`로 비동기 결과 대기
+   - `browser_snapshot`으로 결과 상태 확인
+
+3. **데이터 검증**
+   - `browser_network_requests`로 API 호출 확인
+   - `browser_console_messages`로 에러 없음 확인
+   - 화면에 표시된 데이터 정확성 확인
+
+4. **엣지 케이스 테스트**
+   - 빈 입력값 처리
+   - 잘못된 형식의 입력
+   - 네트워크 에러 상황
+
+### 📄 테스트 시나리오 예시 (견적서 뷰어)
+
+```markdown
+## 테스트 체크리스트
+
+### 1. 견적서 조회 기능
+
+**Happy Path:**
+- [ ] 견적서 ID로 페이지 접근 시 올바른 견적서 표시
+- [ ] 견적서 상세 정보 (고객명, 금액, 항목) 정확히 렌더링
+- [ ] PDF 다운로드 버튼 클릭 시 파일 다운로드
+
+**Edge Cases:**
+- [ ] 존재하지 않는 견적서 ID 접근 시 404 에러 페이지 표시
+- [ ] 만료된 견적서 접근 시 적절한 안내 메시지 표시
+
+### 2. API 연동 검증
+
+**API 호출:**
+- [ ] Notion API 호출 성공 확인 (network_requests)
+- [ ] 응답 시간 합리적 범위 내 (3초 이내)
+- [ ] 콘솔 에러 없음 확인
+```
+
+### ⚠️ 테스트 실패 시 대응
+
+1. 실패한 테스트 케이스 기록
+2. 원인 분석 및 코드 수정
+3. 수정 후 재테스트 수행
+4. 모든 테스트 통과 확인 후 다음 단계 진행
 
 ---
 
