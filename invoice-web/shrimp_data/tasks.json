@@ -136,7 +136,7 @@
       "name": "타입 및 스키마 re-export 통합",
       "description": "types/index.ts와 schemas/index.ts에서 모든 타입과 스키마를 re-export하여 깔끔한 import 경로를 제공합니다.",
       "notes": "export * 사용으로 모든 항목 자동 re-export",
-      "status": "pending",
+      "status": "completed",
       "dependencies": [
         {
           "taskId": "075c54cf-d90c-4dd6-87c4-4183797b6fbc"
@@ -149,7 +149,7 @@
         }
       ],
       "createdAt": "2026-01-27T01:45:12.138Z",
-      "updatedAt": "2026-01-27T01:45:12.138Z",
+      "updatedAt": "2026-01-27T03:40:43.309Z",
       "relatedFiles": [
         {
           "path": "src/lib/types/index.ts",
@@ -164,7 +164,9 @@
       ],
       "implementationGuide": "1. src/lib/types/index.ts 업데이트:\\n   export * from './quote'\\n   export * from './notion'\\n\\n2. src/lib/schemas/index.ts 업데이트:\\n   export * from './quote'\\n\\n3. 사용 예시 확인:\\n   import type { Quote, QuoteItem } from '@/lib/types'\\n   import { parseQuote, quoteSchema } from '@/lib/schemas'",
       "verificationCriteria": "@/lib/types와 @/lib/schemas에서 모든 타입/스키마 import 가능. npm run typecheck 및 npm run check-all 통과",
-      "analysisResult": "Phase 1 Task 002: TypeScript 타입 및 Zod 스키마 정의. 목표는 견적서(Quote, QuoteItem) 데이터 모델과 노션 API 응답 타입을 정의하고, Zod 스키마를 통한 런타임 검증을 구현하는 것입니다. 기존 src/lib/env.ts의 Zod 패턴을 따르며, 경로 별칭(@/lib/types, @/lib/schemas)을 사용합니다."
+      "analysisResult": "Phase 1 Task 002: TypeScript 타입 및 Zod 스키마 정의. 목표는 견적서(Quote, QuoteItem) 데이터 모델과 노션 API 응답 타입을 정의하고, Zod 스키마를 통한 런타임 검증을 구현하는 것입니다. 기존 src/lib/env.ts의 Zod 패턴을 따르며, 경로 별칭(@/lib/types, @/lib/schemas)을 사용합니다.",
+      "summary": "src/lib/types/index.ts와 src/lib/schemas/index.ts에서 모든 타입과 스키마 re-export 완료. @/lib/types에서 Quote, QuoteItem, QuoteStatus, NotionQuoteResponse 등 import 가능. @/lib/schemas에서 quoteSchema, parseQuote 등 import 가능. npm run typecheck, prettier 검사 통과.",
+      "completedAt": "2026-01-27T03:40:43.298Z"
     }
   ]
 }
