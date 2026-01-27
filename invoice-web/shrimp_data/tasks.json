@@ -1,172 +1,238 @@
 {
   "tasks": [
     {
-      "id": "5bc4dbd3-2f91-4b9a-bc81-d35796319c3f",
-      "name": "타입 디렉토리 구조 생성",
-      "description": "src/lib/types/ 및 src/lib/schemas/ 디렉토리를 생성합니다. 기존 src/lib/ 하위(utils.ts, env.ts와 동일 레벨)에 배치합니다.",
-      "notes": "mkdir 또는 파일 생성으로 디렉토리 구조 확보",
-      "status": "completed",
+      "id": "cc264991-c1b3-4919-b404-e7003f21b504",
+      "name": "Task 006: 에러 페이지 UI 완성",
+      "description": "404/500 에러 페이지 스타일링 개선. 사용자 친화적 에러 메시지 및 해결 방법 안내 추가.",
+      "notes": "기존 에러 페이지 구조 유지하며 개선",
+      "status": "pending",
       "dependencies": [],
-      "createdAt": "2026-01-27T01:45:12.138Z",
-      "updatedAt": "2026-01-27T01:51:41.237Z",
+      "createdAt": "2026-01-27T03:50:29.120Z",
+      "updatedAt": "2026-01-27T03:50:29.120Z",
       "relatedFiles": [
         {
-          "path": "src/lib/types/index.ts",
-          "type": "CREATE",
-          "description": "타입 re-export 파일"
+          "path": "src/app/not-found.tsx",
+          "type": "TO_MODIFY",
+          "description": "404 에러 페이지"
         },
         {
-          "path": "src/lib/schemas/index.ts",
-          "type": "CREATE",
-          "description": "스키마 re-export 파일"
+          "path": "src/app/error.tsx",
+          "type": "TO_MODIFY",
+          "description": "500 에러 페이지"
         }
       ],
-      "implementationGuide": "1. src/lib/types/ 디렉토리 생성\\n2. src/lib/schemas/ 디렉토리 생성\\n3. 각 디렉토리에 빈 index.ts 파일 생성 (추후 re-export용)",
-      "verificationCriteria": "src/lib/types/ 및 src/lib/schemas/ 디렉토리가 존재하고 index.ts 파일이 생성됨",
-      "analysisResult": "Phase 1 Task 002: TypeScript 타입 및 Zod 스키마 정의. 목표는 견적서(Quote, QuoteItem) 데이터 모델과 노션 API 응답 타입을 정의하고, Zod 스키마를 통한 런타임 검증을 구현하는 것입니다. 기존 src/lib/env.ts의 Zod 패턴을 따르며, 경로 별칭(@/lib/types, @/lib/schemas)을 사용합니다.",
-      "summary": "src/lib/types/ 및 src/lib/schemas/ 디렉토리 생성 완료. 각 디렉토리에 index.ts 파일 생성됨. npm run typecheck 통과 확인.",
-      "completedAt": "2026-01-27T01:51:41.224Z"
+      "implementationGuide": "1. src/app/not-found.tsx 개선:\\n   - 해결 방법 안내 섹션 추가 (링크 확인, 문의 안내)\\n   - 스타일 개선 (아이콘 크기, 여백 조정)\\n\\n2. src/app/error.tsx 개선:\\n   - 에러 유형별 안내 메시지\\n   - digest 코드 표시 (디버깅용)\\n   - 재시도 횟수 제한 안내\\n\\n3. Playwright MCP 테스트:\\n   - 존재하지 않는 URL 접근 시 404 표시 확인\\n   - 에러 시뮬레이션 및 error.tsx 표시 확인",
+      "verificationCriteria": "에러 페이지에 해결 방법 안내 표시. Playwright 테스트 통과.",
+      "analysisResult": "견적서 뷰어 Phase 2, 3, 4 개발. 기존 타입(@/lib/types)과 스키마(@/lib/schemas) 활용. Next.js 15.5.3 App Router, Server Components 우선. Playwright MCP 테스트 필수."
     },
     {
-      "id": "075c54cf-d90c-4dd6-87c4-4183797b6fbc",
-      "name": "견적서 타입 인터페이스 정의",
-      "description": "Quote, QuoteItem 인터페이스와 QuoteStatus 타입을 정의합니다. PRD 데이터 모델과 정확히 일치해야 하며, 옵셔널 필드(description, payment_terms, notes)를 명확히 구분합니다.",
-      "notes": "기존 src/app/quote/[id]/page.tsx의 sampleQuote 구조와 호환되어야 함",
-      "status": "completed",
-      "dependencies": [
-        {
-          "taskId": "5bc4dbd3-2f91-4b9a-bc81-d35796319c3f"
-        }
-      ],
-      "createdAt": "2026-01-27T01:45:12.138Z",
-      "updatedAt": "2026-01-27T01:55:14.036Z",
+      "id": "90cfe86c-7b8c-47ad-923c-6df99ebccb98",
+      "name": "Task 007: 반응형 디자인 적용",
+      "description": "모바일/태블릿 뷰 최적화. 견적서 테이블 가로 스크롤 및 터치 친화적 UI 구현.",
+      "notes": "TailwindCSS 브레이크포인트 활용: sm(640), md(768), lg(1024)",
+      "status": "pending",
+      "dependencies": [],
+      "createdAt": "2026-01-27T03:50:29.120Z",
+      "updatedAt": "2026-01-27T03:50:29.120Z",
       "relatedFiles": [
-        {
-          "path": "src/lib/types/quote.ts",
-          "type": "CREATE",
-          "description": "견적서 타입 정의 파일"
-        },
         {
           "path": "src/app/quote/[id]/page.tsx",
-          "type": "REFERENCE",
-          "description": "기존 sampleQuote 구조 참조",
-          "lineStart": 74,
-          "lineEnd": 112
+          "type": "TO_MODIFY",
+          "description": "견적서 테이블 반응형"
         },
         {
-          "path": "docs/PRD.md",
-          "type": "REFERENCE",
-          "description": "데이터 모델 정의 참조",
-          "lineStart": 124,
-          "lineEnd": 157
+          "path": "src/components/layout/header.tsx",
+          "type": "TO_MODIFY",
+          "description": "헤더 반응형"
         }
       ],
-      "implementationGuide": "src/lib/types/quote.ts 파일 생성:\\n\\n1. QuoteStatus 타입 정의: 'draft' | 'active' | 'expired' 유니온 타입\\n\\n2. QuoteItem 인터페이스 정의:\\n   - name: string (필수)\\n   - description?: string (옵셔널)\\n   - quantity: number (필수)\\n   - unit_price: number (필수)\\n   - amount: number (필수)\\n\\n3. Quote 인터페이스 정의:\\n   - id: string (필수, 노션 페이지 ID)\\n   - quote_number: string (필수)\\n   - title: string (필수)\\n   - issue_date: string (필수, ISO 날짜)\\n   - valid_until: string (필수)\\n   - sender_company, sender_name, sender_contact: string (필수)\\n   - client_name, client_contact: string (필수)\\n   - items: QuoteItem[] (필수)\\n   - subtotal, tax, total: number (필수)\\n   - payment_terms?: string (옵셔널)\\n   - notes?: string (옵셔널)\\n   - status: QuoteStatus (필수)",
-      "verificationCriteria": "Quote, QuoteItem, QuoteStatus 타입이 정의되고 export됨. npm run typecheck 통과",
-      "analysisResult": "Phase 1 Task 002: TypeScript 타입 및 Zod 스키마 정의. 목표는 견적서(Quote, QuoteItem) 데이터 모델과 노션 API 응답 타입을 정의하고, Zod 스키마를 통한 런타임 검증을 구현하는 것입니다. 기존 src/lib/env.ts의 Zod 패턴을 따르며, 경로 별칭(@/lib/types, @/lib/schemas)을 사용합니다.",
-      "summary": "src/lib/types/quote.ts 파일 생성 완료. QuoteStatus 타입, QuoteItem 인터페이스, Quote 인터페이스 정의. PRD 데이터 모델과 일치하며, 추가로 QuoteCreateInput, QuoteUpdateInput 유틸리티 타입 제공. npm run typecheck 통과.",
-      "completedAt": "2026-01-27T01:55:13.987Z"
+      "implementationGuide": "1. 견적서 테이블 반응형:\\n   - 모바일: overflow-x-auto 적용\\n   - 최소 너비 설정으로 가독성 확보\\n\\n2. 버튼/폼 요소 터치 최적화:\\n   - 최소 터치 영역 44px 확보\\n   - 간격 조정\\n\\n3. 헤더/푸터 반응형 확인\\n\\n4. Playwright MCP 테스트:\\n   - 다양한 뷰포트에서 레이아웃 확인",
+      "verificationCriteria": "모바일 뷰포트에서 테이블 가로 스크롤 동작. 터치 영역 충분.",
+      "analysisResult": "견적서 뷰어 Phase 2, 3, 4 개발. 기존 타입(@/lib/types)과 스키마(@/lib/schemas) 활용. Next.js 15.5.3 App Router, Server Components 우선. Playwright MCP 테스트 필수."
     },
     {
-      "id": "f0bdceef-5c79-44dd-b1ad-d5fe165cd584",
-      "name": "노션 API 응답 타입 정의",
-      "description": "@notionhq/client 패키지의 타입을 활용하여 노션 API 응답 관련 타입을 정의합니다.",
-      "notes": "@notionhq/client 2.2.15 버전의 타입 사용. 복잡한 속성 매핑은 Phase 3에서 구현",
-      "status": "completed",
-      "dependencies": [
-        {
-          "taskId": "5bc4dbd3-2f91-4b9a-bc81-d35796319c3f"
-        }
-      ],
-      "createdAt": "2026-01-27T01:45:12.138Z",
-      "updatedAt": "2026-01-27T03:35:01.197Z",
+      "id": "ad77d4e2-e5bb-420c-a21e-ae9dabee722a",
+      "name": "Task 008: 노션 API 연동 설정",
+      "description": "@notionhq/client 기반 API 클라이언트 생성. 환경변수 설정 및 연결 테스트.",
+      "notes": "@notionhq/client 2.2.15 이미 설치됨. 환경변수는 .env.local에 설정",
+      "status": "pending",
+      "dependencies": [],
+      "createdAt": "2026-01-27T03:50:29.120Z",
+      "updatedAt": "2026-01-27T03:50:29.120Z",
       "relatedFiles": [
         {
-          "path": "src/lib/types/notion.ts",
+          "path": "src/lib/notion/client.ts",
           "type": "CREATE",
-          "description": "노션 API 타입 정의 파일"
+          "description": "노션 API 클라이언트"
         },
         {
-          "path": "package.json",
-          "type": "REFERENCE",
-          "description": "@notionhq/client 버전 확인",
-          "lineStart": 19,
-          "lineEnd": 19
-        }
-      ],
-      "implementationGuide": "src/lib/types/notion.ts 파일 생성:\\n\\n1. @notionhq/client에서 필요한 타입 import:\\n   - PageObjectResponse\\n   - 필요시 다른 속성 타입들\\n\\n2. NotionQuoteResponse 타입 별칭 정의:\\n   - PageObjectResponse를 기반으로 견적서 페이지 응답 타입 정의\\n\\n3. 필요시 노션 속성 타입 헬퍼 정의 (향후 Phase 3에서 활용)",
-      "verificationCriteria": "NotionQuoteResponse 타입이 정의되고 export됨. @notionhq/client 타입과 호환",
-      "analysisResult": "Phase 1 Task 002: TypeScript 타입 및 Zod 스키마 정의. 목표는 견적서(Quote, QuoteItem) 데이터 모델과 노션 API 응답 타입을 정의하고, Zod 스키마를 통한 런타임 검증을 구현하는 것입니다. 기존 src/lib/env.ts의 Zod 패턴을 따르며, 경로 별칭(@/lib/types, @/lib/schemas)을 사용합니다.",
-      "summary": "src/lib/types/notion.ts 생성 완료. @notionhq/client 패키지의 PageObjectResponse, PartialPageObjectResponse, QueryDatabaseResponse 타입을 활용한 NotionQuoteResponse, NotionQuotePageResponse, NotionDatabaseQueryResponse 타입 정의. npm run typecheck 통과.",
-      "completedAt": "2026-01-27T03:35:01.169Z"
-    },
-    {
-      "id": "5719dc74-6c32-40b4-ad4d-f81e08c345b9",
-      "name": "Zod 스키마 및 파싱 함수 정의",
-      "description": "견적서 데이터의 런타임 검증을 위한 Zod 스키마와 파싱 유틸리티 함수를 정의합니다. 기존 src/lib/env.ts의 Zod 패턴을 따릅니다.",
-      "notes": "기존 env.ts의 z.object().parse() 패턴 참조. Zod 4.x 문법 사용",
-      "status": "completed",
-      "dependencies": [
-        {
-          "taskId": "075c54cf-d90c-4dd6-87c4-4183797b6fbc"
-        }
-      ],
-      "createdAt": "2026-01-27T01:45:12.138Z",
-      "updatedAt": "2026-01-27T03:35:03.004Z",
-      "relatedFiles": [
-        {
-          "path": "src/lib/schemas/quote.ts",
+          "path": "src/lib/notion/index.ts",
           "type": "CREATE",
-          "description": "견적서 Zod 스키마 파일"
+          "description": "노션 모듈 re-export"
         },
         {
           "path": "src/lib/env.ts",
-          "type": "REFERENCE",
-          "description": "기존 Zod 스키마 패턴 참조"
+          "type": "TO_MODIFY",
+          "description": "환경변수 스키마 확장"
         }
       ],
-      "implementationGuide": "src/lib/schemas/quote.ts 파일 생성:\\n\\n1. Zod import: import { z } from 'zod'\\n\\n2. quoteStatusSchema 정의:\\n   z.enum(['draft', 'active', 'expired'])\\n\\n3. quoteItemSchema 정의:\\n   z.object({\\n     name: z.string().min(1),\\n     description: z.string().optional().default(''),\\n     quantity: z.number().positive(),\\n     unit_price: z.number().nonnegative(),\\n     amount: z.number().nonnegative()\\n   })\\n\\n4. quoteSchema 정의:\\n   z.object({ ... }) - 모든 필드 포함, 옵셔널 필드에 .optional().default('') 적용\\n\\n5. 타입 추론 export:\\n   export type QuoteFromSchema = z.infer<typeof quoteSchema>\\n   export type QuoteItemFromSchema = z.infer<typeof quoteItemSchema>\\n\\n6. 파싱 함수 정의:\\n   - parseQuote(data: unknown): Quote - 엄격 파싱\\n   - safeParseQuote(data: unknown) - 안전 파싱 (Result 반환)\\n   - parseQuoteItem, safeParseQuoteItem 동일 패턴",
-      "verificationCriteria": "quoteSchema, quoteItemSchema가 정의됨. parseQuote, safeParseQuote 함수가 작동함. npm run typecheck 통과",
-      "analysisResult": "Phase 1 Task 002: TypeScript 타입 및 Zod 스키마 정의. 목표는 견적서(Quote, QuoteItem) 데이터 모델과 노션 API 응답 타입을 정의하고, Zod 스키마를 통한 런타임 검증을 구현하는 것입니다. 기존 src/lib/env.ts의 Zod 패턴을 따르며, 경로 별칭(@/lib/types, @/lib/schemas)을 사용합니다.",
-      "summary": "src/lib/schemas/quote.ts 생성 완료. quoteStatusSchema, quoteItemSchema, quoteSchema Zod 스키마 정의. parseQuote, safeParseQuote, parseQuoteItem, safeParseQuoteItem 파싱 함수 구현. 한국어 에러 메시지 포함. npm run typecheck 통과.",
-      "completedAt": "2026-01-27T03:35:02.988Z"
+      "implementationGuide": "1. src/lib/notion/client.ts 생성:\\n   - Client 인스턴스 생성 (싱글톤)\\n   - NOTION_API_KEY 환경변수 사용\\n\\n2. src/lib/env.ts 확장:\\n   - NOTION_API_KEY: z.string()\\n   - NOTION_DATABASE_ID: z.string()\\n\\n3. src/lib/notion/index.ts 생성:\\n   - client re-export\\n\\n4. 연결 테스트 (개발 환경)",
+      "verificationCriteria": "노션 API 클라이언트 생성됨. 환경변수 검증 통과. npm run typecheck 통과.",
+      "analysisResult": "견적서 뷰어 Phase 2, 3, 4 개발. 기존 타입(@/lib/types)과 스키마(@/lib/schemas) 활용. Next.js 15.5.3 App Router, Server Components 우선. Playwright MCP 테스트 필수."
     },
     {
-      "id": "deacb64b-de7f-42df-a028-64884276e538",
-      "name": "타입 및 스키마 re-export 통합",
-      "description": "types/index.ts와 schemas/index.ts에서 모든 타입과 스키마를 re-export하여 깔끔한 import 경로를 제공합니다.",
-      "notes": "export * 사용으로 모든 항목 자동 re-export",
-      "status": "completed",
+      "id": "7404a686-932f-4334-ae6b-01d9c72942b4",
+      "name": "Task 009: 견적서 데이터 조회 구현",
+      "description": "노션 데이터베이스 쿼리 함수 및 데이터 변환 로직 구현. Zod 스키마 검증 적용.",
+      "notes": "@/lib/types의 Quote 타입과 @/lib/schemas의 safeParseQuote 활용",
+      "status": "pending",
       "dependencies": [
         {
-          "taskId": "075c54cf-d90c-4dd6-87c4-4183797b6fbc"
-        },
-        {
-          "taskId": "f0bdceef-5c79-44dd-b1ad-d5fe165cd584"
-        },
-        {
-          "taskId": "5719dc74-6c32-40b4-ad4d-f81e08c345b9"
+          "taskId": "ad77d4e2-e5bb-420c-a21e-ae9dabee722a"
         }
       ],
-      "createdAt": "2026-01-27T01:45:12.138Z",
-      "updatedAt": "2026-01-27T03:40:43.309Z",
+      "createdAt": "2026-01-27T03:50:55.243Z",
+      "updatedAt": "2026-01-27T03:50:55.243Z",
       "relatedFiles": [
         {
-          "path": "src/lib/types/index.ts",
-          "type": "TO_MODIFY",
-          "description": "타입 re-export 통합"
+          "path": "src/lib/notion/queries.ts",
+          "type": "CREATE",
+          "description": "쿼리 함수"
         },
         {
-          "path": "src/lib/schemas/index.ts",
-          "type": "TO_MODIFY",
-          "description": "스키마 re-export 통합"
+          "path": "src/lib/notion/transformers.ts",
+          "type": "CREATE",
+          "description": "데이터 변환"
         }
       ],
-      "implementationGuide": "1. src/lib/types/index.ts 업데이트:\\n   export * from './quote'\\n   export * from './notion'\\n\\n2. src/lib/schemas/index.ts 업데이트:\\n   export * from './quote'\\n\\n3. 사용 예시 확인:\\n   import type { Quote, QuoteItem } from '@/lib/types'\\n   import { parseQuote, quoteSchema } from '@/lib/schemas'",
-      "verificationCriteria": "@/lib/types와 @/lib/schemas에서 모든 타입/스키마 import 가능. npm run typecheck 및 npm run check-all 통과",
-      "analysisResult": "Phase 1 Task 002: TypeScript 타입 및 Zod 스키마 정의. 목표는 견적서(Quote, QuoteItem) 데이터 모델과 노션 API 응답 타입을 정의하고, Zod 스키마를 통한 런타임 검증을 구현하는 것입니다. 기존 src/lib/env.ts의 Zod 패턴을 따르며, 경로 별칭(@/lib/types, @/lib/schemas)을 사용합니다.",
-      "summary": "src/lib/types/index.ts와 src/lib/schemas/index.ts에서 모든 타입과 스키마 re-export 완료. @/lib/types에서 Quote, QuoteItem, QuoteStatus, NotionQuoteResponse 등 import 가능. @/lib/schemas에서 quoteSchema, parseQuote 등 import 가능. npm run typecheck, prettier 검사 통과.",
-      "completedAt": "2026-01-27T03:40:43.298Z"
+      "implementationGuide": "1. src/lib/notion/queries.ts 생성:\\n   - getQuoteById(id: string): Promise<Quote | null>\\n   - databases.query 사용\\n\\n2. src/lib/notion/transformers.ts 생성:\\n   - transformNotionToQuote(page): Quote\\n   - 노션 속성 → Quote 필드 매핑\\n   - safeParseQuote() 검증 적용\\n\\n3. Playwright MCP API 테스트",
+      "verificationCriteria": "getQuoteById 함수가 Quote 객체 반환. Zod 검증 통과.",
+      "analysisResult": "Phase 3 핵심 기능: 노션 데이터 조회, 페이지 연동, PDF 다운로드"
+    },
+    {
+      "id": "ab5277e3-b7ca-4bda-97ba-267aaf44e580",
+      "name": "Task 010: 견적서 뷰어 페이지 데이터 연동",
+      "description": "더미 데이터를 실제 노션 API 호출로 교체. Server Component 데이터 fetching 구현.",
+      "notes": "Server Component에서 직접 API 호출. 클라이언트 fetch 불필요.",
+      "status": "pending",
+      "dependencies": [
+        {
+          "taskId": "7404a686-932f-4334-ae6b-01d9c72942b4"
+        }
+      ],
+      "createdAt": "2026-01-27T03:50:55.243Z",
+      "updatedAt": "2026-01-27T03:50:55.243Z",
+      "relatedFiles": [
+        {
+          "path": "src/app/quote/[id]/page.tsx",
+          "type": "TO_MODIFY",
+          "description": "견적서 뷰어 페이지"
+        }
+      ],
+      "implementationGuide": "1. src/app/quote/[id]/page.tsx 수정:\\n   - sampleQuote 제거\\n   - getQuoteById(id) 호출\\n   - 데이터 없을 시 notFound() 호출\\n\\n2. QuoteContent 컴포넌트 수정:\\n   - Quote 타입 props 사용\\n\\n3. Playwright MCP E2E 테스트:\\n   - 실제 견적서 ID로 페이지 접근\\n   - 데이터 렌더링 확인",
+      "verificationCriteria": "실제 노션 데이터가 화면에 렌더링됨. 없는 ID 시 404 표시.",
+      "analysisResult": "Phase 3 핵심 기능: 노션 데이터 조회, 페이지 연동, PDF 다운로드"
+    },
+    {
+      "id": "569e181f-2dbd-4071-9a8b-1a08002cc5be",
+      "name": "Task 011: PDF 다운로드 기능 구현",
+      "description": "jsPDF + html2canvas 기반 PDF 생성 및 다운로드 기능 구현.",
+      "notes": "jsPDF, html2canvas 이미 설치됨. A4 사이즈 최적화 필요.",
+      "status": "pending",
+      "dependencies": [
+        {
+          "taskId": "ab5277e3-b7ca-4bda-97ba-267aaf44e580"
+        }
+      ],
+      "createdAt": "2026-01-27T03:50:55.243Z",
+      "updatedAt": "2026-01-27T03:50:55.243Z",
+      "relatedFiles": [
+        {
+          "path": "src/components/quote/pdf-download-button.tsx",
+          "type": "CREATE",
+          "description": "PDF 다운로드 버튼"
+        },
+        {
+          "path": "src/app/quote/[id]/page.tsx",
+          "type": "TO_MODIFY",
+          "description": "버튼 연결"
+        }
+      ],
+      "implementationGuide": "1. src/components/quote/pdf-download-button.tsx 생성:\\n   - 'use client' 컴포넌트\\n   - html2canvas로 견적서 영역 캡처\\n   - jsPDF로 PDF 생성\\n   - 파일명: {quote_number}_{date}.pdf\\n\\n2. 견적서 페이지에 버튼 연결\\n\\n3. Playwright MCP 테스트:\\n   - 다운로드 버튼 클릭 테스트",
+      "verificationCriteria": "PDF 다운로드 버튼 클릭 시 PDF 파일 생성 및 다운로드.",
+      "analysisResult": "Phase 3 핵심 기능: 노션 데이터 조회, 페이지 연동, PDF 다운로드"
+    },
+    {
+      "id": "a9a5574b-b9d7-49b9-b578-aa0a2ff95ce0",
+      "name": "Task 012: 에러 처리 및 로딩 상태 개선",
+      "description": "노션 API 에러 케이스별 메시지 처리. 로딩 스켈레톤 애니메이션 개선.",
+      "notes": "기존 Skeleton 컴포넌트 활용",
+      "status": "pending",
+      "dependencies": [
+        {
+          "taskId": "ab5277e3-b7ca-4bda-97ba-267aaf44e580"
+        }
+      ],
+      "createdAt": "2026-01-27T03:51:19.318Z",
+      "updatedAt": "2026-01-27T03:51:19.318Z",
+      "relatedFiles": [
+        {
+          "path": "src/app/quote/[id]/page.tsx",
+          "type": "TO_MODIFY",
+          "description": "에러/로딩 처리"
+        }
+      ],
+      "implementationGuide": "1. 에러 처리 개선:\\n   - API 에러 타입별 메시지 (네트워크, 권한, 데이터 없음)\\n   - 사용자 친화적 안내 문구\\n\\n2. 로딩 상태 개선:\\n   - Skeleton 애니메이션 부드럽게\\n   - 로딩 시간 표시 (선택)\\n\\n3. 재시도 로직 (선택):\\n   - 네트워크 오류 시 자동 재시도",
+      "verificationCriteria": "에러 발생 시 적절한 메시지 표시. 로딩 스켈레톤 자연스럽게 동작.",
+      "analysisResult": "Phase 4 안정화 및 배포: 에러 처리 개선, 성능 최적화, Vercel 배포"
+    },
+    {
+      "id": "83261cd3-1327-4c97-ab47-d083271b9e7e",
+      "name": "Task 013: 성능 최적화",
+      "description": "Next.js 캐싱 전략 구현. 번들 사이즈 분석 및 최적화.",
+      "notes": "견적서 데이터는 변경 빈도 낮으므로 캐싱 효과적",
+      "status": "pending",
+      "dependencies": [
+        {
+          "taskId": "a9a5574b-b9d7-49b9-b578-aa0a2ff95ce0"
+        }
+      ],
+      "createdAt": "2026-01-27T03:51:19.318Z",
+      "updatedAt": "2026-01-27T03:51:19.318Z",
+      "relatedFiles": [
+        {
+          "path": "src/lib/notion/queries.ts",
+          "type": "TO_MODIFY",
+          "description": "캐싱 옵션 추가"
+        }
+      ],
+      "implementationGuide": "1. 캐싱 전략:\\n   - revalidate 옵션 설정 (1시간)\\n   - 정적/동적 렌더링 최적화\\n\\n2. 번들 분석:\\n   - @next/bundle-analyzer 설치\\n   - 불필요한 의존성 제거\\n\\n3. 이미지 최적화 (있을 경우):\\n   - next/image 활용",
+      "verificationCriteria": "revalidate 설정됨. 번들 사이즈 분석 완료.",
+      "analysisResult": "Phase 4 안정화 및 배포: 에러 처리 개선, 성능 최적화, Vercel 배포"
+    },
+    {
+      "id": "62cc6433-8b08-44cb-9503-51def99de691",
+      "name": "Task 014: 배포 및 테스트",
+      "description": "Vercel 배포 설정. 환경변수 설정 및 최종 E2E 테스트.",
+      "notes": "Vercel 자동 배포 또는 수동 배포",
+      "status": "pending",
+      "dependencies": [
+        {
+          "taskId": "83261cd3-1327-4c97-ab47-d083271b9e7e"
+        }
+      ],
+      "createdAt": "2026-01-27T03:51:19.318Z",
+      "updatedAt": "2026-01-27T03:51:19.318Z",
+      "relatedFiles": [
+        {
+          "path": "vercel.json",
+          "type": "CREATE",
+          "description": "Vercel 설정 (선택)"
+        }
+      ],
+      "implementationGuide": "1. Vercel 배포:\\n   - vercel.json 설정 (필요시)\\n   - 환경변수 설정 (NOTION_API_KEY, NOTION_DATABASE_ID)\\n\\n2. 최종 E2E 테스트 (Playwright MCP):\\n   - 견적서 조회 플로우\\n   - PDF 다운로드 플로우\\n   - 에러 케이스 테스트\\n\\n3. 성능 모니터링 설정 (선택)",
+      "verificationCriteria": "Vercel 배포 성공. 프로덕션 환경에서 E2E 테스트 통과.",
+      "analysisResult": "Phase 4 안정화 및 배포: 에러 처리 개선, 성능 최적화, Vercel 배포"
     }
   ]
 }
