@@ -58,7 +58,7 @@
   - 모든 주요 페이지의 기본 파일 생성 (`/`, `/quote/[id]`, 에러 페이지)
   - 공통 레이아웃 컴포넌트 (Header, Footer, Container) 구현
 
-- **Task 002: 타입 정의 및 인터페이스 설계** - 우선순위
+- **Task 002: 타입 정의 및 인터페이스 설계** - 완료
   - See: `/tasks/002-type-definitions.md`
   - TypeScript 인터페이스 및 타입 정의 파일 생성 (`src/lib/types/`)
   - Quote, QuoteItem 데이터 모델 타입 정의
