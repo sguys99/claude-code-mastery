@@ -72,14 +72,14 @@
       "name": "노션 API 응답 타입 정의",
       "description": "@notionhq/client 패키지의 타입을 활용하여 노션 API 응답 관련 타입을 정의합니다.",
       "notes": "@notionhq/client 2.2.15 버전의 타입 사용. 복잡한 속성 매핑은 Phase 3에서 구현",
-      "status": "pending",
+      "status": "completed",
       "dependencies": [
         {
           "taskId": "5bc4dbd3-2f91-4b9a-bc81-d35796319c3f"
         }
       ],
       "createdAt": "2026-01-27T01:45:12.138Z",
-      "updatedAt": "2026-01-27T01:45:12.138Z",
+      "updatedAt": "2026-01-27T03:35:01.197Z",
       "relatedFiles": [
         {
           "path": "src/lib/types/notion.ts",
@@ -96,21 +96,23 @@
       ],
       "implementationGuide": "src/lib/types/notion.ts 파일 생성:\\n\\n1. @notionhq/client에서 필요한 타입 import:\\n   - PageObjectResponse\\n   - 필요시 다른 속성 타입들\\n\\n2. NotionQuoteResponse 타입 별칭 정의:\\n   - PageObjectResponse를 기반으로 견적서 페이지 응답 타입 정의\\n\\n3. 필요시 노션 속성 타입 헬퍼 정의 (향후 Phase 3에서 활용)",
       "verificationCriteria": "NotionQuoteResponse 타입이 정의되고 export됨. @notionhq/client 타입과 호환",
-      "analysisResult": "Phase 1 Task 002: TypeScript 타입 및 Zod 스키마 정의. 목표는 견적서(Quote, QuoteItem) 데이터 모델과 노션 API 응답 타입을 정의하고, Zod 스키마를 통한 런타임 검증을 구현하는 것입니다. 기존 src/lib/env.ts의 Zod 패턴을 따르며, 경로 별칭(@/lib/types, @/lib/schemas)을 사용합니다."
+      "analysisResult": "Phase 1 Task 002: TypeScript 타입 및 Zod 스키마 정의. 목표는 견적서(Quote, QuoteItem) 데이터 모델과 노션 API 응답 타입을 정의하고, Zod 스키마를 통한 런타임 검증을 구현하는 것입니다. 기존 src/lib/env.ts의 Zod 패턴을 따르며, 경로 별칭(@/lib/types, @/lib/schemas)을 사용합니다.",
+      "summary": "src/lib/types/notion.ts 생성 완료. @notionhq/client 패키지의 PageObjectResponse, PartialPageObjectResponse, QueryDatabaseResponse 타입을 활용한 NotionQuoteResponse, NotionQuotePageResponse, NotionDatabaseQueryResponse 타입 정의. npm run typecheck 통과.",
+      "completedAt": "2026-01-27T03:35:01.169Z"
     },
     {
       "id": "5719dc74-6c32-40b4-ad4d-f81e08c345b9",
       "name": "Zod 스키마 및 파싱 함수 정의",
       "description": "견적서 데이터의 런타임 검증을 위한 Zod 스키마와 파싱 유틸리티 함수를 정의합니다. 기존 src/lib/env.ts의 Zod 패턴을 따릅니다.",
       "notes": "기존 env.ts의 z.object().parse() 패턴 참조. Zod 4.x 문법 사용",
-      "status": "pending",
+      "status": "completed",
       "dependencies": [
         {
           "taskId": "075c54cf-d90c-4dd6-87c4-4183797b6fbc"
         }
       ],
       "createdAt": "2026-01-27T01:45:12.138Z",
-      "updatedAt": "2026-01-27T01:45:12.138Z",
+      "updatedAt": "2026-01-27T03:35:03.004Z",
       "relatedFiles": [
         {
           "path": "src/lib/schemas/quote.ts",
@@ -125,7 +127,9 @@
       ],
       "implementationGuide": "src/lib/schemas/quote.ts 파일 생성:\\n\\n1. Zod import: import { z } from 'zod'\\n\\n2. quoteStatusSchema 정의:\\n   z.enum(['draft', 'active', 'expired'])\\n\\n3. quoteItemSchema 정의:\\n   z.object({\\n     name: z.string().min(1),\\n     description: z.string().optional().default(''),\\n     quantity: z.number().positive(),\\n     unit_price: z.number().nonnegative(),\\n     amount: z.number().nonnegative()\\n   })\\n\\n4. quoteSchema 정의:\\n   z.object({ ... }) - 모든 필드 포함, 옵셔널 필드에 .optional().default('') 적용\\n\\n5. 타입 추론 export:\\n   export type QuoteFromSchema = z.infer<typeof quoteSchema>\\n   export type QuoteItemFromSchema = z.infer<typeof quoteItemSchema>\\n\\n6. 파싱 함수 정의:\\n   - parseQuote(data: unknown): Quote - 엄격 파싱\\n   - safeParseQuote(data: unknown) - 안전 파싱 (Result 반환)\\n   - parseQuoteItem, safeParseQuoteItem 동일 패턴",
       "verificationCriteria": "quoteSchema, quoteItemSchema가 정의됨. parseQuote, safeParseQuote 함수가 작동함. npm run typecheck 통과",
-      "analysisResult": "Phase 1 Task 002: TypeScript 타입 및 Zod 스키마 정의. 목표는 견적서(Quote, QuoteItem) 데이터 모델과 노션 API 응답 타입을 정의하고, Zod 스키마를 통한 런타임 검증을 구현하는 것입니다. 기존 src/lib/env.ts의 Zod 패턴을 따르며, 경로 별칭(@/lib/types, @/lib/schemas)을 사용합니다."
+      "analysisResult": "Phase 1 Task 002: TypeScript 타입 및 Zod 스키마 정의. 목표는 견적서(Quote, QuoteItem) 데이터 모델과 노션 API 응답 타입을 정의하고, Zod 스키마를 통한 런타임 검증을 구현하는 것입니다. 기존 src/lib/env.ts의 Zod 패턴을 따르며, 경로 별칭(@/lib/types, @/lib/schemas)을 사용합니다.",
+      "summary": "src/lib/schemas/quote.ts 생성 완료. quoteStatusSchema, quoteItemSchema, quoteSchema Zod 스키마 정의. parseQuote, safeParseQuote, parseQuoteItem, safeParseQuoteItem 파싱 함수 구현. 한국어 에러 메시지 포함. npm run typecheck 통과.",
+      "completedAt": "2026-01-27T03:35:02.988Z"
     },
     {
       "id": "deacb64b-de7f-42df-a028-64884276e538",
