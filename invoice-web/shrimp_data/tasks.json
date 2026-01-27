@@ -1,0 +1,162 @@
+{
+  "tasks": [
+    {
+      "id": "5bc4dbd3-2f91-4b9a-bc81-d35796319c3f",
+      "name": "타입 디렉토리 구조 생성",
+      "description": "src/lib/types/ 및 src/lib/schemas/ 디렉토리를 생성합니다. 기존 src/lib/ 하위(utils.ts, env.ts와 동일 레벨)에 배치합니다.",
+      "notes": "mkdir 또는 파일 생성으로 디렉토리 구조 확보",
+      "status": "pending",
+      "dependencies": [],
+      "createdAt": "2026-01-27T01:45:12.138Z",
+      "updatedAt": "2026-01-27T01:45:12.138Z",
+      "relatedFiles": [
+        {
+          "path": "src/lib/types/index.ts",
+          "type": "CREATE",
+          "description": "타입 re-export 파일"
+        },
+        {
+          "path": "src/lib/schemas/index.ts",
+          "type": "CREATE",
+          "description": "스키마 re-export 파일"
+        }
+      ],
+      "implementationGuide": "1. src/lib/types/ 디렉토리 생성\\n2. src/lib/schemas/ 디렉토리 생성\\n3. 각 디렉토리에 빈 index.ts 파일 생성 (추후 re-export용)",
+      "verificationCriteria": "src/lib/types/ 및 src/lib/schemas/ 디렉토리가 존재하고 index.ts 파일이 생성됨",
+      "analysisResult": "Phase 1 Task 002: TypeScript 타입 및 Zod 스키마 정의. 목표는 견적서(Quote, QuoteItem) 데이터 모델과 노션 API 응답 타입을 정의하고, Zod 스키마를 통한 런타임 검증을 구현하는 것입니다. 기존 src/lib/env.ts의 Zod 패턴을 따르며, 경로 별칭(@/lib/types, @/lib/schemas)을 사용합니다."
+    },
+    {
+      "id": "075c54cf-d90c-4dd6-87c4-4183797b6fbc",
+      "name": "견적서 타입 인터페이스 정의",
+      "description": "Quote, QuoteItem 인터페이스와 QuoteStatus 타입을 정의합니다. PRD 데이터 모델과 정확히 일치해야 하며, 옵셔널 필드(description, payment_terms, notes)를 명확히 구분합니다.",
+      "notes": "기존 src/app/quote/[id]/page.tsx의 sampleQuote 구조와 호환되어야 함",
+      "status": "pending",
+      "dependencies": [
+        {
+          "taskId": "5bc4dbd3-2f91-4b9a-bc81-d35796319c3f"
+        }
+      ],
+      "createdAt": "2026-01-27T01:45:12.138Z",
+      "updatedAt": "2026-01-27T01:45:12.138Z",
+      "relatedFiles": [
+        {
+          "path": "src/lib/types/quote.ts",
+          "type": "CREATE",
+          "description": "견적서 타입 정의 파일"
+        },
+        {
+          "path": "src/app/quote/[id]/page.tsx",
+          "type": "REFERENCE",
+          "description": "기존 sampleQuote 구조 참조",
+          "lineStart": 74,
+          "lineEnd": 112
+        },
+        {
+          "path": "docs/PRD.md",
+          "type": "REFERENCE",
+          "description": "데이터 모델 정의 참조",
+          "lineStart": 124,
+          "lineEnd": 157
+        }
+      ],
+      "implementationGuide": "src/lib/types/quote.ts 파일 생성:\\n\\n1. QuoteStatus 타입 정의: 'draft' | 'active' | 'expired' 유니온 타입\\n\\n2. QuoteItem 인터페이스 정의:\\n   - name: string (필수)\\n   - description?: string (옵셔널)\\n   - quantity: number (필수)\\n   - unit_price: number (필수)\\n   - amount: number (필수)\\n\\n3. Quote 인터페이스 정의:\\n   - id: string (필수, 노션 페이지 ID)\\n   - quote_number: string (필수)\\n   - title: string (필수)\\n   - issue_date: string (필수, ISO 날짜)\\n   - valid_until: string (필수)\\n   - sender_company, sender_name, sender_contact: string (필수)\\n   - client_name, client_contact: string (필수)\\n   - items: QuoteItem[] (필수)\\n   - subtotal, tax, total: number (필수)\\n   - payment_terms?: string (옵셔널)\\n   - notes?: string (옵셔널)\\n   - status: QuoteStatus (필수)",
+      "verificationCriteria": "Quote, QuoteItem, QuoteStatus 타입이 정의되고 export됨. npm run typecheck 통과",
+      "analysisResult": "Phase 1 Task 002: TypeScript 타입 및 Zod 스키마 정의. 목표는 견적서(Quote, QuoteItem) 데이터 모델과 노션 API 응답 타입을 정의하고, Zod 스키마를 통한 런타임 검증을 구현하는 것입니다. 기존 src/lib/env.ts의 Zod 패턴을 따르며, 경로 별칭(@/lib/types, @/lib/schemas)을 사용합니다."
+    },
+    {
+      "id": "f0bdceef-5c79-44dd-b1ad-d5fe165cd584",
+      "name": "노션 API 응답 타입 정의",
+      "description": "@notionhq/client 패키지의 타입을 활용하여 노션 API 응답 관련 타입을 정의합니다.",
+      "notes": "@notionhq/client 2.2.15 버전의 타입 사용. 복잡한 속성 매핑은 Phase 3에서 구현",
+      "status": "pending",
+      "dependencies": [
+        {
+          "taskId": "5bc4dbd3-2f91-4b9a-bc81-d35796319c3f"
+        }
+      ],
+      "createdAt": "2026-01-27T01:45:12.138Z",
+      "updatedAt": "2026-01-27T01:45:12.138Z",
+      "relatedFiles": [
+        {
+          "path": "src/lib/types/notion.ts",
+          "type": "CREATE",
+          "description": "노션 API 타입 정의 파일"
+        },
+        {
+          "path": "package.json",
+          "type": "REFERENCE",
+          "description": "@notionhq/client 버전 확인",
+          "lineStart": 19,
+          "lineEnd": 19
+        }
+      ],
+      "implementationGuide": "src/lib/types/notion.ts 파일 생성:\\n\\n1. @notionhq/client에서 필요한 타입 import:\\n   - PageObjectResponse\\n   - 필요시 다른 속성 타입들\\n\\n2. NotionQuoteResponse 타입 별칭 정의:\\n   - PageObjectResponse를 기반으로 견적서 페이지 응답 타입 정의\\n\\n3. 필요시 노션 속성 타입 헬퍼 정의 (향후 Phase 3에서 활용)",
+      "verificationCriteria": "NotionQuoteResponse 타입이 정의되고 export됨. @notionhq/client 타입과 호환",
+      "analysisResult": "Phase 1 Task 002: TypeScript 타입 및 Zod 스키마 정의. 목표는 견적서(Quote, QuoteItem) 데이터 모델과 노션 API 응답 타입을 정의하고, Zod 스키마를 통한 런타임 검증을 구현하는 것입니다. 기존 src/lib/env.ts의 Zod 패턴을 따르며, 경로 별칭(@/lib/types, @/lib/schemas)을 사용합니다."
+    },
+    {
+      "id": "5719dc74-6c32-40b4-ad4d-f81e08c345b9",
+      "name": "Zod 스키마 및 파싱 함수 정의",
+      "description": "견적서 데이터의 런타임 검증을 위한 Zod 스키마와 파싱 유틸리티 함수를 정의합니다. 기존 src/lib/env.ts의 Zod 패턴을 따릅니다.",
+      "notes": "기존 env.ts의 z.object().parse() 패턴 참조. Zod 4.x 문법 사용",
+      "status": "pending",
+      "dependencies": [
+        {
+          "taskId": "075c54cf-d90c-4dd6-87c4-4183797b6fbc"
+        }
+      ],
+      "createdAt": "2026-01-27T01:45:12.138Z",
+      "updatedAt": "2026-01-27T01:45:12.138Z",
+      "relatedFiles": [
+        {
+          "path": "src/lib/schemas/quote.ts",
+          "type": "CREATE",
+          "description": "견적서 Zod 스키마 파일"
+        },
+        {
+          "path": "src/lib/env.ts",
+          "type": "REFERENCE",
+          "description": "기존 Zod 스키마 패턴 참조"
+        }
+      ],
+      "implementationGuide": "src/lib/schemas/quote.ts 파일 생성:\\n\\n1. Zod import: import { z } from 'zod'\\n\\n2. quoteStatusSchema 정의:\\n   z.enum(['draft', 'active', 'expired'])\\n\\n3. quoteItemSchema 정의:\\n   z.object({\\n     name: z.string().min(1),\\n     description: z.string().optional().default(''),\\n     quantity: z.number().positive(),\\n     unit_price: z.number().nonnegative(),\\n     amount: z.number().nonnegative()\\n   })\\n\\n4. quoteSchema 정의:\\n   z.object({ ... }) - 모든 필드 포함, 옵셔널 필드에 .optional().default('') 적용\\n\\n5. 타입 추론 export:\\n   export type QuoteFromSchema = z.infer<typeof quoteSchema>\\n   export type QuoteItemFromSchema = z.infer<typeof quoteItemSchema>\\n\\n6. 파싱 함수 정의:\\n   - parseQuote(data: unknown): Quote - 엄격 파싱\\n   - safeParseQuote(data: unknown) - 안전 파싱 (Result 반환)\\n   - parseQuoteItem, safeParseQuoteItem 동일 패턴",
+      "verificationCriteria": "quoteSchema, quoteItemSchema가 정의됨. parseQuote, safeParseQuote 함수가 작동함. npm run typecheck 통과",
+      "analysisResult": "Phase 1 Task 002: TypeScript 타입 및 Zod 스키마 정의. 목표는 견적서(Quote, QuoteItem) 데이터 모델과 노션 API 응답 타입을 정의하고, Zod 스키마를 통한 런타임 검증을 구현하는 것입니다. 기존 src/lib/env.ts의 Zod 패턴을 따르며, 경로 별칭(@/lib/types, @/lib/schemas)을 사용합니다."
+    },
+    {
+      "id": "deacb64b-de7f-42df-a028-64884276e538",
+      "name": "타입 및 스키마 re-export 통합",
+      "description": "types/index.ts와 schemas/index.ts에서 모든 타입과 스키마를 re-export하여 깔끔한 import 경로를 제공합니다.",
+      "notes": "export * 사용으로 모든 항목 자동 re-export",
+      "status": "pending",
+      "dependencies": [
+        {
+          "taskId": "075c54cf-d90c-4dd6-87c4-4183797b6fbc"
+        },
+        {
+          "taskId": "f0bdceef-5c79-44dd-b1ad-d5fe165cd584"
+        },
+        {
+          "taskId": "5719dc74-6c32-40b4-ad4d-f81e08c345b9"
+        }
+      ],
+      "createdAt": "2026-01-27T01:45:12.138Z",
+      "updatedAt": "2026-01-27T01:45:12.138Z",
+      "relatedFiles": [
+        {
+          "path": "src/lib/types/index.ts",
+          "type": "TO_MODIFY",
+          "description": "타입 re-export 통합"
+        },
+        {
+          "path": "src/lib/schemas/index.ts",
+          "type": "TO_MODIFY",
+          "description": "스키마 re-export 통합"
+        }
+      ],
+      "implementationGuide": "1. src/lib/types/index.ts 업데이트:\\n   export * from './quote'\\n   export * from './notion'\\n\\n2. src/lib/schemas/index.ts 업데이트:\\n   export * from './quote'\\n\\n3. 사용 예시 확인:\\n   import type { Quote, QuoteItem } from '@/lib/types'\\n   import { parseQuote, quoteSchema } from '@/lib/schemas'",
+      "verificationCriteria": "@/lib/types와 @/lib/schemas에서 모든 타입/스키마 import 가능. npm run typecheck 및 npm run check-all 통과",
+      "analysisResult": "Phase 1 Task 002: TypeScript 타입 및 Zod 스키마 정의. 목표는 견적서(Quote, QuoteItem) 데이터 모델과 노션 API 응답 타입을 정의하고, Zod 스키마를 통한 런타임 검증을 구현하는 것입니다. 기존 src/lib/env.ts의 Zod 패턴을 따르며, 경로 별칭(@/lib/types, @/lib/schemas)을 사용합니다."
+    }
+  ]
+}
