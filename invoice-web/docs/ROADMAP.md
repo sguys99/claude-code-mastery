@@ -141,11 +141,12 @@
   - 에러 유형별 아이콘 및 재시도 버튼 조건부 표시
   - 견적서 페이지 로딩 스켈레톤 상세화 완료
 
-- **Task 013: 성능 최적화**
+- **Task 013: 성능 최적화** - 완료
   - See: `/tasks/013-performance.md`
-  - 노션 API 응답 캐싱 전략 구현 (Next.js 캐시 활용)
-  - 이미지 최적화 (next/image)
-  - 번들 사이즈 분석 및 최적화
+  - unstable_cache를 활용한 노션 API 응답 캐싱 구현 완료
+  - 캐시 전략: 목록 5분, 단일 견적서 1분
+  - @next/bundle-analyzer 설정 및 analyze 스크립트 추가
+  - optimizePackageImports 설정 (lucide-react, @notionhq/client)
 
 - **Task 014: 배포 및 테스트**
   - See: `/tasks/014-deployment.md`
