@@ -114,16 +114,19 @@ async function QuoteContent({ id }: { id: string }) {
   return (
     <Card>
       <CardHeader className="space-y-4 border-b">
-        <div className="flex items-start justify-between">
+        {/* 견적서 헤더: 모바일에서 세로 배치, 데스크톱에서 가로 배치 */}
+        <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
           <div>
-            <h1 className="text-3xl font-bold">{sampleQuote.title}</h1>
-            <p className="text-muted-foreground mt-1">
+            <h1 className="text-2xl font-bold md:text-3xl">
+              {sampleQuote.title}
+            </h1>
+            <p className="text-muted-foreground mt-1 text-sm">
               견적서 번호: {sampleQuote.quote_number}
             </p>
           </div>
-          <div className="text-right">
-            <p className="text-sm">발행일: {sampleQuote.issue_date}</p>
-            <p className="text-sm">유효기간: {sampleQuote.valid_until}</p>
+          <div className="text-muted-foreground flex gap-4 text-sm md:flex-col md:gap-0 md:text-right">
+            <p>발행일: {sampleQuote.issue_date}</p>
+            <p>유효기간: {sampleQuote.valid_until}</p>
           </div>
         </div>
 
@@ -144,29 +147,51 @@ async function QuoteContent({ id }: { id: string }) {
 
       <CardContent className="pt-6">
         <h3 className="mb-4 text-lg font-semibold">견적 항목</h3>
-        <div className="overflow-x-auto">
+
+        {/* 모바일: 카드 형태 */}
+        <div className="space-y-4 md:hidden">
+          {sampleQuote.items.map((item, index) => (
+            <div key={index} className="bg-muted/30 rounded-lg p-4">
+              <div className="mb-2 font-medium">{item.name}</div>
+              <p className="text-muted-foreground mb-3 text-sm">
+                {item.description}
+              </p>
+              <div className="flex justify-between text-sm">
+                <span className="text-muted-foreground">
+                  {item.quantity}개 × {item.unit_price.toLocaleString()}원
+                </span>
+                <span className="font-medium">
+                  {item.amount.toLocaleString()}원
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* 데스크톱: 테이블 형태 */}
+        <div className="hidden md:block">
           <table className="w-full">
             <thead className="border-b">
               <tr className="text-sm">
                 <th className="pb-2 text-left">항목명</th>
                 <th className="pb-2 text-left">설명</th>
-                <th className="pb-2 text-right">수량</th>
-                <th className="pb-2 text-right">단가</th>
-                <th className="pb-2 text-right">금액</th>
+                <th className="w-16 pb-2 text-right">수량</th>
+                <th className="w-28 pb-2 text-right">단가</th>
+                <th className="w-28 pb-2 text-right">금액</th>
               </tr>
             </thead>
             <tbody>
               {sampleQuote.items.map((item, index) => (
                 <tr key={index} className="border-b">
-                  <td className="py-3">{item.name}</td>
+                  <td className="py-3 font-medium">{item.name}</td>
                   <td className="text-muted-foreground py-3 text-sm">
                     {item.description}
                   </td>
                   <td className="py-3 text-right">{item.quantity}</td>
-                  <td className="py-3 text-right">
+                  <td className="py-3 text-right whitespace-nowrap">
                     {item.unit_price.toLocaleString()}원
                   </td>
-                  <td className="py-3 text-right">
+                  <td className="py-3 text-right whitespace-nowrap">
                     {item.amount.toLocaleString()}원
                   </td>
                 </tr>
