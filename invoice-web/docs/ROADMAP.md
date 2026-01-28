@@ -108,12 +108,12 @@
   - 노션 API 클라이언트 유틸리티 생성 완료 (`src/lib/notion/client.ts`)
   - API 연결 테스트 통과 (데이터베이스: "Invoices")
 
-- **Task 009: 견적서 데이터 조회 구현**
+- **Task 009: 견적서 데이터 조회 구현** - 완료
   - See: `/tasks/009-quote-data-fetch.md`
-  - 노션 데이터베이스 쿼리 함수 구현 (`src/lib/notion/queries.ts`)
-  - 노션 응답 데이터 변환 로직 구현 (`src/lib/notion/transformers.ts`)
-  - Zod 스키마를 활용한 데이터 검증
-  - Playwright MCP를 활용한 API 통합 테스트
+  - 노션 데이터베이스 쿼리 함수 구현 완료 (`src/lib/notion/queries.ts`)
+  - 노션 응답 데이터 변환 로직 구현 완료 (`src/lib/notion/transformers.ts`)
+  - API 라우트 생성 완료 (`/api/quotes`, `/api/quotes/[id]`)
+  - Playwright MCP를 활용한 API 테스트 통과
 
 - **Task 010: 견적서 뷰어 페이지 데이터 연동**
   - See: `/tasks/010-quote-page-integration.md`
