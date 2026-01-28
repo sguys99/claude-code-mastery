@@ -101,12 +101,12 @@
 
 ### Phase 3: 핵심 기능 구현
 
-- **Task 008: 노션 API 연동 설정** - 우선순위
+- **Task 008: 노션 API 연동 설정** - 완료
   - See: `/tasks/008-notion-api-setup.md`
-  - @notionhq/client 패키지 설치 및 설정
-  - 환경변수 설정 (NOTION_API_KEY, NOTION_DATABASE_ID)
-  - 노션 API 클라이언트 유틸리티 생성 (`src/lib/notion/client.ts`)
-  - API 연결 테스트
+  - @notionhq/client 패키지 설치 및 설정 완료
+  - 환경변수 설정 완료 (NOTION_API_KEY, NOTION_DATABASE_ID)
+  - 노션 API 클라이언트 유틸리티 생성 완료 (`src/lib/notion/client.ts`)
+  - API 연결 테스트 통과 (데이터베이스: "Invoices")
 
 - **Task 009: 견적서 데이터 조회 구현**
   - See: `/tasks/009-quote-data-fetch.md`
