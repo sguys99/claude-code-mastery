@@ -101,17 +101,113 @@ export default async function QuotePage({ params }: QuotePageProps) {
 
 function QuoteLoading() {
   return (
-    <Card>
-      <CardHeader>
-        <Skeleton className="h-8 w-64" />
-        <Skeleton className="mt-2 h-4 w-32" />
-      </CardHeader>
-      <CardContent className="space-y-4">
-        <Skeleton className="h-4 w-full" />
-        <Skeleton className="h-4 w-full" />
-        <Skeleton className="h-4 w-3/4" />
-      </CardContent>
-    </Card>
+    <>
+      {/* 상단 버튼 스켈레톤 */}
+      <div className="mb-6 flex items-center justify-between">
+        <Skeleton className="h-9 w-24" />
+        <Skeleton className="h-9 w-32" />
+      </div>
+
+      {/* 견적서 카드 스켈레톤 */}
+      <Card>
+        <CardHeader className="space-y-4 border-b">
+          {/* 헤더 */}
+          <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
+            <div className="space-y-2">
+              <Skeleton className="h-8 w-64" />
+              <Skeleton className="h-4 w-40" />
+            </div>
+            <div className="space-y-1">
+              <Skeleton className="h-4 w-32" />
+              <Skeleton className="h-4 w-32" />
+            </div>
+          </div>
+
+          {/* 발신자/수신자 정보 */}
+          <div className="grid gap-4 md:grid-cols-2">
+            <div className="space-y-2">
+              <Skeleton className="h-5 w-16" />
+              <Skeleton className="h-4 w-32" />
+              <Skeleton className="h-4 w-24" />
+              <Skeleton className="h-4 w-28" />
+            </div>
+            <div className="space-y-2">
+              <Skeleton className="h-5 w-16" />
+              <Skeleton className="h-4 w-24" />
+              <Skeleton className="h-4 w-28" />
+            </div>
+          </div>
+        </CardHeader>
+
+        <CardContent className="pt-6">
+          {/* 견적 항목 제목 */}
+          <Skeleton className="mb-4 h-6 w-24" />
+
+          {/* 테이블 헤더 스켈레톤 */}
+          <div className="hidden space-y-3 md:block">
+            <div className="flex gap-4 border-b pb-2">
+              <Skeleton className="h-4 w-24" />
+              <Skeleton className="h-4 flex-1" />
+              <Skeleton className="h-4 w-12" />
+              <Skeleton className="h-4 w-20" />
+              <Skeleton className="h-4 w-20" />
+            </div>
+            {/* 테이블 행 스켈레톤 */}
+            {[1, 2, 3].map((i) => (
+              <div key={i} className="flex gap-4 border-b py-3">
+                <Skeleton className="h-4 w-32" />
+                <Skeleton className="h-4 flex-1" />
+                <Skeleton className="h-4 w-8" />
+                <Skeleton className="h-4 w-20" />
+                <Skeleton className="h-4 w-20" />
+              </div>
+            ))}
+          </div>
+
+          {/* 모바일 카드 스켈레톤 */}
+          <div className="space-y-4 md:hidden">
+            {[1, 2, 3].map((i) => (
+              <div key={i} className="bg-muted/30 rounded-lg p-4 space-y-3">
+                <Skeleton className="h-5 w-40" />
+                <Skeleton className="h-4 w-full" />
+                <div className="flex justify-between">
+                  <Skeleton className="h-4 w-24" />
+                  <Skeleton className="h-4 w-20" />
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* 합계 영역 스켈레톤 */}
+          <div className="mt-6 space-y-2 border-t pt-4">
+            <div className="flex justify-between">
+              <Skeleton className="h-4 w-12" />
+              <Skeleton className="h-4 w-24" />
+            </div>
+            <div className="flex justify-between">
+              <Skeleton className="h-4 w-20" />
+              <Skeleton className="h-4 w-20" />
+            </div>
+            <div className="flex justify-between border-t pt-2">
+              <Skeleton className="h-6 w-16" />
+              <Skeleton className="h-6 w-28" />
+            </div>
+          </div>
+
+          {/* 결제조건/특이사항 스켈레톤 */}
+          <div className="mt-6 space-y-4 border-t pt-6">
+            <div className="space-y-2">
+              <Skeleton className="h-5 w-20" />
+              <Skeleton className="h-4 w-48" />
+            </div>
+            <div className="space-y-2">
+              <Skeleton className="h-5 w-20" />
+              <Skeleton className="h-4 w-64" />
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    </>
   )
 }
 

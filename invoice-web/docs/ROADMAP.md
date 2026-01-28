@@ -134,11 +134,12 @@
 
 ### Phase 4: 안정화 및 배포
 
-- **Task 012: 에러 처리 및 로딩 상태 개선**
+- **Task 012: 에러 처리 및 로딩 상태 개선** - 완료
   - See: `/tasks/012-error-handling.md`
-  - 노션 API 에러 케이스별 사용자 친화적 메시지 처리
-  - 로딩 상태 UX 개선 (스켈레톤 애니메이션)
-  - 네트워크 에러 재시도 로직 (선택)
+  - NotionApiError 커스텀 에러 클래스 구현 완료
+  - 에러 코드별 (unauthorized, forbidden, not_found 등) 맞춤 메시지 처리
+  - 에러 유형별 아이콘 및 재시도 버튼 조건부 표시
+  - 견적서 페이지 로딩 스켈레톤 상세화 완료
 
 - **Task 013: 성능 최적화**
   - See: `/tasks/013-performance.md`
