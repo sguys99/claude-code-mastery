@@ -115,20 +115,20 @@
   - API 라우트 생성 완료 (`/api/quotes`, `/api/quotes/[id]`)
   - Playwright MCP를 활용한 API 테스트 통과
 
-- **Task 010: 견적서 뷰어 페이지 데이터 연동**
+- **Task 010: 견적서 뷰어 페이지 데이터 연동** - 완료
   - See: `/tasks/010-quote-page-integration.md`
-  - 더미 데이터를 실제 노션 API 호출로 교체
-  - Server Component에서 데이터 fetching 구현
-  - 에러 핸들링 및 notFound() 처리
-  - Playwright MCP로 전체 조회 플로우 E2E 테스트
+  - 더미 데이터를 실제 노션 API 호출로 교체 완료
+  - Server Component에서 데이터 fetching 구현 완료
+  - 에러 핸들링 및 notFound() 처리 완료
+  - Playwright MCP로 전체 조회 플로우 E2E 테스트 통과
 
-- **Task 011: PDF 다운로드 기능 구현**
+- **Task 011: PDF 다운로드 기능 구현** - 완료
   - See: `/tasks/011-pdf-download.md`
-  - PDF 생성 라이브러리 선정 및 설치 (react-to-pdf 또는 jsPDF + html2canvas)
-  - 견적서 컴포넌트 PDF 변환 로직 구현
-  - 다운로드 버튼 클릭 시 PDF 생성 및 저장 기능
-  - PDF 스타일링 최적화 (프린트 친화적 레이아웃)
-  - Playwright MCP로 PDF 다운로드 플로우 테스트
+  - jsPDF, html2canvas, html-to-image 설치 완료
+  - PdfDownloadButton 클라이언트 컴포넌트 구현 완료
+  - 브라우저 인쇄 기능(window.print) 활용으로 LAB 색상 호환성 해결
+  - 프린트 전용 @media print 스타일 적용 완료
+  - Playwright MCP 테스트 통과 (버튼 동작, 에러 없음)
 
 ---
 

@@ -6,8 +6,11 @@ import { Footer } from '@/components/layout/footer'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
-import { Download, Home } from 'lucide-react'
+import { Home } from 'lucide-react'
 import Link from 'next/link'
+import { getQuoteById, transformNotionToQuote } from '@/lib/notion'
+import { PdfDownloadButton } from '@/components/quote/pdf-download-button'
+import type { Quote } from '@/lib/types/quote'
 
 interface QuotePageProps {
   params: Promise<{
@@ -15,33 +18,77 @@ interface QuotePageProps {
   }>
 }
 
+// 샘플 데이터 (sample ID용)
+const sampleQuote: Quote = {
+  id: 'sample',
+  quote_number: 'Q-2025-001',
+  title: '웹사이트 개발 견적서',
+  issue_date: '2025-01-26',
+  valid_until: '2025-02-26',
+  sender_company: '(주)테크솔루션',
+  sender_name: '김개발',
+  sender_contact: '010-1234-5678',
+  client_name: '홍길동',
+  client_contact: '010-9876-5432',
+  items: [
+    {
+      name: '웹사이트 기획 및 디자인',
+      description: 'UI/UX 디자인 및 프로토타입 제작',
+      quantity: 1,
+      unit_price: 3000000,
+      amount: 3000000,
+    },
+    {
+      name: '프론트엔드 개발',
+      description: 'React 기반 웹 애플리케이션 개발',
+      quantity: 1,
+      unit_price: 5000000,
+      amount: 5000000,
+    },
+    {
+      name: '백엔드 개발',
+      description: 'Node.js API 서버 구축',
+      quantity: 1,
+      unit_price: 4000000,
+      amount: 4000000,
+    },
+  ],
+  subtotal: 12000000,
+  tax: 1200000,
+  total: 13200000,
+  payment_terms: '계약금 50%, 잔금 50% (완료 후)',
+  notes: '유지보수 계약은 별도 협의 가능합니다.',
+  status: 'active',
+}
+
+// 견적서 데이터 조회
+async function getQuote(id: string): Promise<Quote | null> {
+  // 샘플 ID인 경우 샘플 데이터 반환
+  if (id === 'sample') {
+    return sampleQuote
+  }
+
+  // 노션 API로 데이터 조회
+  try {
+    const page = await getQuoteById(id)
+    if (!page) {
+      return null
+    }
+    return await transformNotionToQuote(page)
+  } catch (error) {
+    console.error('견적서 조회 에러:', error)
+    return null
+  }
+}
+
 export default async function QuotePage({ params }: QuotePageProps) {
   const { id } = await params
-
-  // TODO: 노션 API로 견적서 데이터 조회
-  // 임시로 샘플 데이터만 표시
-  if (id !== 'sample') {
-    notFound()
-  }
 
   return (
     <div className="flex min-h-screen flex-col">
       <Header />
       <main className="flex-1 py-8">
         <Container>
-          <div className="mb-6 flex items-center justify-between">
-            <Link href="/">
-              <Button variant="outline" size="sm">
-                <Home className="mr-2 h-4 w-4" />
-                홈으로
-              </Button>
-            </Link>
-            <Button size="sm">
-              <Download className="mr-2 h-4 w-4" />
-              PDF 다운로드
-            </Button>
-          </div>
-
           <Suspense fallback={<QuoteLoading />}>
             <QuoteContent id={id} />
           </Suspense>
@@ -69,78 +116,61 @@ function QuoteLoading() {
 }
 
 async function QuoteContent({ id }: { id: string }) {
-  // TODO: 노션 API 연동 시 id 파라미터를 사용하여 데이터 조회 예정
-  // 임시 샘플 데이터
-  const sampleQuote = {
-    quote_number: 'Q-2025-001',
-    title: '웹사이트 개발 견적서',
-    issue_date: '2025-01-26',
-    valid_until: '2025-02-26',
-    sender_company: '(주)테크솔루션',
-    sender_name: '김개발',
-    sender_contact: '010-1234-5678',
-    client_name: '홍길동',
-    client_contact: '010-9876-5432',
-    items: [
-      {
-        name: '웹사이트 기획 및 디자인',
-        description: 'UI/UX 디자인 및 프로토타입 제작',
-        quantity: 1,
-        unit_price: 3000000,
-        amount: 3000000,
-      },
-      {
-        name: '프론트엔드 개발',
-        description: 'React 기반 웹 애플리케이션 개발',
-        quantity: 1,
-        unit_price: 5000000,
-        amount: 5000000,
-      },
-      {
-        name: '백엔드 개발',
-        description: 'Node.js API 서버 구축',
-        quantity: 1,
-        unit_price: 4000000,
-        amount: 4000000,
-      },
-    ],
-    subtotal: 12000000,
-    tax: 1200000,
-    total: 13200000,
-    payment_terms: '계약금 50%, 잔금 50% (완료 후)',
-    notes: '유지보수 계약은 별도 협의 가능합니다.',
+  const quote = await getQuote(id)
+
+  // 견적서를 찾을 수 없는 경우
+  if (!quote) {
+    notFound()
   }
 
   return (
-    <Card>
-      <CardHeader className="space-y-4 border-b">
+    <>
+      {/* 상단 버튼 영역 */}
+      <div className="mb-6 flex items-center justify-between">
+        <Link href="/">
+          <Button variant="outline" size="sm">
+            <Home className="mr-2 h-4 w-4" />
+            홈으로
+          </Button>
+        </Link>
+        <PdfDownloadButton
+          quoteNumber={quote.quote_number}
+          contentId="quote-content"
+        />
+      </div>
+
+      {/* 견적서 카드 */}
+      <Card id="quote-content">
+        <CardHeader className="space-y-4 border-b">
         {/* 견적서 헤더: 모바일에서 세로 배치, 데스크톱에서 가로 배치 */}
         <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
           <div>
-            <h1 className="text-2xl font-bold md:text-3xl">
-              {sampleQuote.title}
-            </h1>
+            <h1 className="text-2xl font-bold md:text-3xl">{quote.title}</h1>
             <p className="text-muted-foreground mt-1 text-sm">
-              견적서 번호: {sampleQuote.quote_number}
+              견적서 번호: {quote.quote_number}
             </p>
           </div>
           <div className="text-muted-foreground flex gap-4 text-sm md:flex-col md:gap-0 md:text-right">
-            <p>발행일: {sampleQuote.issue_date}</p>
-            <p>유효기간: {sampleQuote.valid_until}</p>
+            <p>발행일: {quote.issue_date}</p>
+            <p>유효기간: {quote.valid_until}</p>
           </div>
         </div>
 
         <div className="grid gap-4 md:grid-cols-2">
           <div>
             <h3 className="mb-2 font-semibold">발신자</h3>
-            <p className="text-sm">{sampleQuote.sender_company}</p>
-            <p className="text-sm">{sampleQuote.sender_name}</p>
-            <p className="text-sm">{sampleQuote.sender_contact}</p>
+            <p className="text-sm">{quote.sender_company}</p>
+            {quote.sender_name && <p className="text-sm">{quote.sender_name}</p>}
+            {quote.sender_contact && (
+              <p className="text-sm">{quote.sender_contact}</p>
+            )}
           </div>
           <div>
             <h3 className="mb-2 font-semibold">수신자</h3>
-            <p className="text-sm">{sampleQuote.client_name}</p>
-            <p className="text-sm">{sampleQuote.client_contact}</p>
+            <p className="text-sm">{quote.client_name}</p>
+            {quote.client_contact && (
+              <p className="text-sm">{quote.client_contact}</p>
+            )}
           </div>
         </div>
       </CardHeader>
@@ -150,12 +180,14 @@ async function QuoteContent({ id }: { id: string }) {
 
         {/* 모바일: 카드 형태 */}
         <div className="space-y-4 md:hidden">
-          {sampleQuote.items.map((item, index) => (
+          {quote.items.map((item, index) => (
             <div key={index} className="bg-muted/30 rounded-lg p-4">
               <div className="mb-2 font-medium">{item.name}</div>
-              <p className="text-muted-foreground mb-3 text-sm">
-                {item.description}
-              </p>
+              {item.description && (
+                <p className="text-muted-foreground mb-3 text-sm">
+                  {item.description}
+                </p>
+              )}
               <div className="flex justify-between text-sm">
                 <span className="text-muted-foreground">
                   {item.quantity}개 × {item.unit_price.toLocaleString()}원
@@ -181,11 +213,11 @@ async function QuoteContent({ id }: { id: string }) {
               </tr>
             </thead>
             <tbody>
-              {sampleQuote.items.map((item, index) => (
+              {quote.items.map((item, index) => (
                 <tr key={index} className="border-b">
                   <td className="py-3 font-medium">{item.name}</td>
                   <td className="text-muted-foreground py-3 text-sm">
-                    {item.description}
+                    {item.description || '-'}
                   </td>
                   <td className="py-3 text-right">{item.quantity}</td>
                   <td className="py-3 text-right whitespace-nowrap">
@@ -204,34 +236,39 @@ async function QuoteContent({ id }: { id: string }) {
           <div className="flex justify-between">
             <span>소계</span>
             <span className="font-medium">
-              {sampleQuote.subtotal.toLocaleString()}원
+              {quote.subtotal.toLocaleString()}원
             </span>
           </div>
           <div className="flex justify-between">
             <span>부가세 (10%)</span>
-            <span className="font-medium">
-              {sampleQuote.tax.toLocaleString()}원
-            </span>
+            <span className="font-medium">{quote.tax.toLocaleString()}원</span>
           </div>
           <div className="flex justify-between border-t pt-2 text-lg font-bold">
             <span>총 금액</span>
-            <span>{sampleQuote.total.toLocaleString()}원</span>
+            <span>{quote.total.toLocaleString()}원</span>
           </div>
         </div>
 
-        <div className="mt-6 space-y-4 border-t pt-6">
-          <div>
-            <h4 className="mb-2 font-semibold">결제 조건</h4>
-            <p className="text-muted-foreground text-sm">
-              {sampleQuote.payment_terms}
-            </p>
+        {(quote.payment_terms || quote.notes) && (
+          <div className="mt-6 space-y-4 border-t pt-6">
+            {quote.payment_terms && (
+              <div>
+                <h4 className="mb-2 font-semibold">결제 조건</h4>
+                <p className="text-muted-foreground text-sm">
+                  {quote.payment_terms}
+                </p>
+              </div>
+            )}
+            {quote.notes && (
+              <div>
+                <h4 className="mb-2 font-semibold">특이사항</h4>
+                <p className="text-muted-foreground text-sm">{quote.notes}</p>
+              </div>
+            )}
           </div>
-          <div>
-            <h4 className="mb-2 font-semibold">특이사항</h4>
-            <p className="text-muted-foreground text-sm">{sampleQuote.notes}</p>
-          </div>
-        </div>
+        )}
       </CardContent>
     </Card>
+    </>
   )
 }
