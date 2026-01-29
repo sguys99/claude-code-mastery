@@ -153,7 +153,7 @@ function QuoteLoading() {
               <Skeleton className="h-4 w-20" />
             </div>
             {/* 테이블 행 스켈레톤 */}
-            {[1, 2, 3].map((i) => (
+            {[1, 2, 3].map(i => (
               <div key={i} className="flex gap-4 border-b py-3">
                 <Skeleton className="h-4 w-32" />
                 <Skeleton className="h-4 flex-1" />
@@ -166,8 +166,8 @@ function QuoteLoading() {
 
           {/* 모바일 카드 스켈레톤 */}
           <div className="space-y-4 md:hidden">
-            {[1, 2, 3].map((i) => (
-              <div key={i} className="bg-muted/30 rounded-lg p-4 space-y-3">
+            {[1, 2, 3].map(i => (
+              <div key={i} className="bg-muted/30 space-y-3 rounded-lg p-4">
                 <Skeleton className="h-5 w-40" />
                 <Skeleton className="h-4 w-full" />
                 <div className="flex justify-between">
@@ -229,142 +229,143 @@ async function QuoteContent({ id }: { id: string }) {
             홈으로
           </Button>
         </Link>
-        <PdfDownloadButton
-          quoteNumber={quote.quote_number}
-          contentId="quote-content"
-        />
+        <PdfDownloadButton contentId="quote-content" />
       </div>
 
       {/* 견적서 카드 */}
       <Card id="quote-content">
         <CardHeader className="space-y-4 border-b">
-        {/* 견적서 헤더: 모바일에서 세로 배치, 데스크톱에서 가로 배치 */}
-        <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
-          <div>
-            <h1 className="text-2xl font-bold md:text-3xl">{quote.title}</h1>
-            <p className="text-muted-foreground mt-1 text-sm">
-              견적서 번호: {quote.quote_number}
-            </p>
-          </div>
-          <div className="text-muted-foreground flex gap-4 text-sm md:flex-col md:gap-0 md:text-right">
-            <p>발행일: {quote.issue_date}</p>
-            <p>유효기간: {quote.valid_until}</p>
-          </div>
-        </div>
-
-        <div className="grid gap-4 md:grid-cols-2">
-          <div>
-            <h3 className="mb-2 font-semibold">발신자</h3>
-            <p className="text-sm">{quote.sender_company}</p>
-            {quote.sender_name && <p className="text-sm">{quote.sender_name}</p>}
-            {quote.sender_contact && (
-              <p className="text-sm">{quote.sender_contact}</p>
-            )}
-          </div>
-          <div>
-            <h3 className="mb-2 font-semibold">수신자</h3>
-            <p className="text-sm">{quote.client_name}</p>
-            {quote.client_contact && (
-              <p className="text-sm">{quote.client_contact}</p>
-            )}
-          </div>
-        </div>
-      </CardHeader>
-
-      <CardContent className="pt-6">
-        <h3 className="mb-4 text-lg font-semibold">견적 항목</h3>
-
-        {/* 모바일: 카드 형태 */}
-        <div className="space-y-4 md:hidden">
-          {quote.items.map((item, index) => (
-            <div key={index} className="bg-muted/30 rounded-lg p-4">
-              <div className="mb-2 font-medium">{item.name}</div>
-              {item.description && (
-                <p className="text-muted-foreground mb-3 text-sm">
-                  {item.description}
-                </p>
-              )}
-              <div className="flex justify-between text-sm">
-                <span className="text-muted-foreground">
-                  {item.quantity}개 × {item.unit_price.toLocaleString()}원
-                </span>
-                <span className="font-medium">
-                  {item.amount.toLocaleString()}원
-                </span>
-              </div>
+          {/* 견적서 헤더: 모바일에서 세로 배치, 데스크톱에서 가로 배치 */}
+          <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
+            <div>
+              <h1 className="text-2xl font-bold md:text-3xl">{quote.title}</h1>
+              <p className="text-muted-foreground mt-1 text-sm">
+                견적서 번호: {quote.quote_number}
+              </p>
             </div>
-          ))}
-        </div>
+            <div className="text-muted-foreground flex gap-4 text-sm md:flex-col md:gap-0 md:text-right">
+              <p>발행일: {quote.issue_date}</p>
+              <p>유효기간: {quote.valid_until}</p>
+            </div>
+          </div>
 
-        {/* 데스크톱: 테이블 형태 */}
-        <div className="hidden md:block">
-          <table className="w-full">
-            <thead className="border-b">
-              <tr className="text-sm">
-                <th className="pb-2 text-left">항목명</th>
-                <th className="pb-2 text-left">설명</th>
-                <th className="w-16 pb-2 text-right">수량</th>
-                <th className="w-28 pb-2 text-right">단가</th>
-                <th className="w-28 pb-2 text-right">금액</th>
-              </tr>
-            </thead>
-            <tbody>
-              {quote.items.map((item, index) => (
-                <tr key={index} className="border-b">
-                  <td className="py-3 font-medium">{item.name}</td>
-                  <td className="text-muted-foreground py-3 text-sm">
-                    {item.description || '-'}
-                  </td>
-                  <td className="py-3 text-right">{item.quantity}</td>
-                  <td className="py-3 text-right whitespace-nowrap">
-                    {item.unit_price.toLocaleString()}원
-                  </td>
-                  <td className="py-3 text-right whitespace-nowrap">
+          <div className="grid gap-4 md:grid-cols-2">
+            <div>
+              <h3 className="mb-2 font-semibold">발신자</h3>
+              <p className="text-sm">{quote.sender_company}</p>
+              {quote.sender_name && (
+                <p className="text-sm">{quote.sender_name}</p>
+              )}
+              {quote.sender_contact && (
+                <p className="text-sm">{quote.sender_contact}</p>
+              )}
+            </div>
+            <div>
+              <h3 className="mb-2 font-semibold">수신자</h3>
+              <p className="text-sm">{quote.client_name}</p>
+              {quote.client_contact && (
+                <p className="text-sm">{quote.client_contact}</p>
+              )}
+            </div>
+          </div>
+        </CardHeader>
+
+        <CardContent className="pt-6">
+          <h3 className="mb-4 text-lg font-semibold">견적 항목</h3>
+
+          {/* 모바일: 카드 형태 */}
+          <div className="space-y-4 md:hidden">
+            {quote.items.map((item, index) => (
+              <div key={index} className="bg-muted/30 rounded-lg p-4">
+                <div className="mb-2 font-medium">{item.name}</div>
+                {item.description && (
+                  <p className="text-muted-foreground mb-3 text-sm">
+                    {item.description}
+                  </p>
+                )}
+                <div className="flex justify-between text-sm">
+                  <span className="text-muted-foreground">
+                    {item.quantity}개 × {item.unit_price.toLocaleString()}원
+                  </span>
+                  <span className="font-medium">
                     {item.amount.toLocaleString()}원
-                  </td>
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* 데스크톱: 테이블 형태 */}
+          <div className="hidden md:block">
+            <table className="w-full">
+              <thead className="border-b">
+                <tr className="text-sm">
+                  <th className="pb-2 text-left">항목명</th>
+                  <th className="pb-2 text-left">설명</th>
+                  <th className="w-16 pb-2 text-right">수량</th>
+                  <th className="w-28 pb-2 text-right">단가</th>
+                  <th className="w-28 pb-2 text-right">금액</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody>
+                {quote.items.map((item, index) => (
+                  <tr key={index} className="border-b">
+                    <td className="py-3 font-medium">{item.name}</td>
+                    <td className="text-muted-foreground py-3 text-sm">
+                      {item.description || '-'}
+                    </td>
+                    <td className="py-3 text-right">{item.quantity}</td>
+                    <td className="py-3 text-right whitespace-nowrap">
+                      {item.unit_price.toLocaleString()}원
+                    </td>
+                    <td className="py-3 text-right whitespace-nowrap">
+                      {item.amount.toLocaleString()}원
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
 
-        <div className="mt-6 space-y-2 border-t pt-4">
-          <div className="flex justify-between">
-            <span>소계</span>
-            <span className="font-medium">
-              {quote.subtotal.toLocaleString()}원
-            </span>
+          <div className="mt-6 space-y-2 border-t pt-4">
+            <div className="flex justify-between">
+              <span>소계</span>
+              <span className="font-medium">
+                {quote.subtotal.toLocaleString()}원
+              </span>
+            </div>
+            <div className="flex justify-between">
+              <span>부가세 (10%)</span>
+              <span className="font-medium">
+                {quote.tax.toLocaleString()}원
+              </span>
+            </div>
+            <div className="flex justify-between border-t pt-2 text-lg font-bold">
+              <span>총 금액</span>
+              <span>{quote.total.toLocaleString()}원</span>
+            </div>
           </div>
-          <div className="flex justify-between">
-            <span>부가세 (10%)</span>
-            <span className="font-medium">{quote.tax.toLocaleString()}원</span>
-          </div>
-          <div className="flex justify-between border-t pt-2 text-lg font-bold">
-            <span>총 금액</span>
-            <span>{quote.total.toLocaleString()}원</span>
-          </div>
-        </div>
 
-        {(quote.payment_terms || quote.notes) && (
-          <div className="mt-6 space-y-4 border-t pt-6">
-            {quote.payment_terms && (
-              <div>
-                <h4 className="mb-2 font-semibold">결제 조건</h4>
-                <p className="text-muted-foreground text-sm">
-                  {quote.payment_terms}
-                </p>
-              </div>
-            )}
-            {quote.notes && (
-              <div>
-                <h4 className="mb-2 font-semibold">특이사항</h4>
-                <p className="text-muted-foreground text-sm">{quote.notes}</p>
-              </div>
-            )}
-          </div>
-        )}
-      </CardContent>
-    </Card>
+          {(quote.payment_terms || quote.notes) && (
+            <div className="mt-6 space-y-4 border-t pt-6">
+              {quote.payment_terms && (
+                <div>
+                  <h4 className="mb-2 font-semibold">결제 조건</h4>
+                  <p className="text-muted-foreground text-sm">
+                    {quote.payment_terms}
+                  </p>
+                </div>
+              )}
+              {quote.notes && (
+                <div>
+                  <h4 className="mb-2 font-semibold">특이사항</h4>
+                  <p className="text-muted-foreground text-sm">{quote.notes}</p>
+                </div>
+              )}
+            </div>
+          )}
+        </CardContent>
+      </Card>
     </>
   )
 }

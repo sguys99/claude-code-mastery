@@ -3,9 +3,7 @@
     "playwright": {
       "type": "stdio",
       "command": "npx",
-      "args": [
-        "@playwright/mcp@latest"
-      ],
+      "args": ["@playwright/mcp@latest"],
       "env": {}
     },
     "context7": {
@@ -14,23 +12,15 @@
     },
     "sequential-thinking": {
       "command": "npx",
-      "args": [
-        "-y",
-        "@modelcontextprotocol/server-sequential-thinking"
-      ]
+      "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"]
     },
     "shadcn": {
       "command": "npx",
-      "args": [
-        "shadcn@latest",
-        "mcp"
-      ]
+      "args": ["shadcn@latest", "mcp"]
     },
     "shrimp-task-manager": {
       "command": "node",
-      "args": [
-        "/mnt/d/project/mcp-shrimp-task-manager/dist/index.js"
-      ],
+      "args": ["/mnt/d/project/mcp-shrimp-task-manager/dist/index.js"],
       "env": {
         "DATA_DIR": "/mnt/d/project/claude-code-mastery/invoice-web/shrimp_data",
         "TEMPLATES_USE": "en",

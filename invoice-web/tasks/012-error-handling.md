@@ -37,15 +37,15 @@
 
 ## 에러 코드별 처리
 
-| 에러 코드 | 제목 | 재시도 가능 | 아이콘 |
-|-----------|------|------------|--------|
-| unauthorized | 인증 오류 | ❌ | Lock |
-| forbidden | 접근 권한 없음 | ❌ | Lock |
-| not_found | 견적서를 찾을 수 없음 | ❌ | FileX |
-| rate_limited | 요청 한도 초과 | ✅ | Clock |
-| server_error | 서버 오류 | ✅ | ServerCrash |
-| network_error | 네트워크 연결 오류 | ✅ | Wifi |
-| unknown | 알 수 없는 오류 | ✅ | AlertCircle |
+| 에러 코드     | 제목                  | 재시도 가능 | 아이콘      |
+| ------------- | --------------------- | ----------- | ----------- |
+| unauthorized  | 인증 오류             | ❌          | Lock        |
+| forbidden     | 접근 권한 없음        | ❌          | Lock        |
+| not_found     | 견적서를 찾을 수 없음 | ❌          | FileX       |
+| rate_limited  | 요청 한도 초과        | ✅          | Clock       |
+| server_error  | 서버 오류             | ✅          | ServerCrash |
+| network_error | 네트워크 연결 오류    | ✅          | Wifi        |
+| unknown       | 알 수 없는 오류       | ✅          | AlertCircle |
 
 ## 테스트 결과
 

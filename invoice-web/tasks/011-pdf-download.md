@@ -35,11 +35,13 @@
 TailwindCSS v4는 OKLCH/LAB 색상 공간을 사용하는데, html2canvas와 html-to-image 모두 이 색상 형식을 파싱하지 못하는 문제가 있었습니다.
 
 **시도한 방법들:**
+
 1. html2canvas 직접 사용 → LAB 색상 파싱 에러
 2. html-to-image 사용 → 동일한 에러
 3. 요소 복제 후 CSS 변수 변환 → 복제 시점에 이미 LAB 값으로 계산됨
 
 **해결책:**
+
 - 브라우저의 기본 인쇄 기능(window.print) 활용
 - @media print 스타일로 레이아웃 최적화
 - 사용자가 인쇄 다이얼로그에서 "PDF로 저장" 선택

@@ -12,8 +12,7 @@ export async function GET() {
     })
 
     // 속성 정보만 추출
-    const properties =
-      'properties' in database ? database.properties : {}
+    const properties = 'properties' in database ? database.properties : {}
 
     return NextResponse.json({
       success: true,

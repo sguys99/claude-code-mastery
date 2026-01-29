@@ -59,7 +59,7 @@ export default function Error({
   const handleRetry = async () => {
     setIsRetrying(true)
     // 잠시 대기 후 재시도 (Rate limit 대응)
-    await new Promise((resolve) => setTimeout(resolve, 500))
+    await new Promise(resolve => setTimeout(resolve, 500))
     reset()
     setIsRetrying(false)
   }
@@ -122,7 +122,9 @@ export default function Error({
                   )}
                   <li className="flex items-start gap-2">
                     <span className="text-primary mt-0.5">•</span>
-                    <span>문제가 지속되면 견적서 발급 담당자에게 문의해주세요</span>
+                    <span>
+                      문제가 지속되면 견적서 발급 담당자에게 문의해주세요
+                    </span>
                   </li>
                 </ul>
               </div>

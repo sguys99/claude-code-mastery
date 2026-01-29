@@ -148,12 +148,14 @@
   - @next/bundle-analyzer 설정 및 analyze 스크립트 추가
   - optimizePackageImports 설정 (lucide-react, @notionhq/client)
 
-- **Task 014: 배포 및 테스트**
-  - See: `/tasks/014-deployment.md`
-  - Vercel 배포 설정
-  - 환경변수 설정 (프로덕션)
-  - 최종 E2E 테스트 (Playwright MCP)
-  - 성능 테스트 및 모니터링 설정
+- **Task 014: 로컬 빌드 테스트 및 최종 검증** - 완료
+  - See: `/tasks/014-local-build-test.md`
+  - 프로덕션 빌드 테스트 (`npm run build`) 성공
+  - ESLint 경고 수정 (미사용 변수 제거)
+  - 프로덕션 서버 실행 테스트 (`npm run start`) 성공
+  - Playwright MCP로 E2E 테스트 완료 (홈, 샘플 견적서, 404 페이지)
+  - 콘솔 에러 없음 확인
+  - **MVP 완성**
 
 ---
 
@@ -177,8 +179,8 @@
 | Phase 1  | 애플리케이션 골격 구축   | 완료      |
 | Phase 2  | UI/UX 완성 (더미 데이터) | 1-2일     |
 | Phase 3  | 핵심 기능 구현           | 3-4일     |
-| Phase 4  | 안정화 및 배포           | 1-2일     |
-| **총합** | **MVP 완성**             | **5-8일** |
+| Phase 4  | 안정화 및 배포           | 완료      |
+| **총합** | **MVP 완성**             | **완료**  |
 
 ---
 

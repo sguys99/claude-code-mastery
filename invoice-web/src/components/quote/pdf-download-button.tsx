@@ -1,18 +1,14 @@
 'use client'
 
-import { useCallback, useRef } from 'react'
+import { useCallback } from 'react'
 import { Button } from '@/components/ui/button'
 import { Download } from 'lucide-react'
 
 interface PdfDownloadButtonProps {
-  quoteNumber: string
   contentId: string
 }
 
-export function PdfDownloadButton({
-  quoteNumber,
-  contentId,
-}: PdfDownloadButtonProps) {
+export function PdfDownloadButton({ contentId }: PdfDownloadButtonProps) {
   const handleDownload = useCallback(() => {
     const element = document.getElementById(contentId)
     if (!element) {

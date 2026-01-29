@@ -12,14 +12,14 @@ AI Agent 전용 프로젝트 개발 규칙 문서
 
 ### 기술 스택
 
-| 카테고리 | 기술 | 버전 |
-|---------|------|------|
-| Framework | Next.js (App Router + Turbopack) | 15.5.3 |
-| Runtime | React + TypeScript | 19.1.0 / 5.x |
-| Styling | TailwindCSS + shadcn/ui (new-york) | v4 |
-| Forms | React Hook Form + Zod | 7.x / 4.x |
-| API | @notionhq/client | 2.x |
-| PDF | jsPDF + html2canvas | - |
+| 카테고리  | 기술                               | 버전         |
+| --------- | ---------------------------------- | ------------ |
+| Framework | Next.js (App Router + Turbopack)   | 15.5.3       |
+| Runtime   | React + TypeScript                 | 19.1.0 / 5.x |
+| Styling   | TailwindCSS + shadcn/ui (new-york) | v4           |
+| Forms     | React Hook Form + Zod              | 7.x / 4.x    |
+| API       | @notionhq/client                   | 2.x          |
+| PDF       | jsPDF + html2canvas                | -            |
 
 ### 핵심 흐름
 
@@ -58,12 +58,12 @@ src/
 
 ### 주요 설정 파일
 
-| 파일 | 용도 |
-|-----|------|
-| `components.json` | shadcn/ui 설정 (style: new-york, rsc: true) |
-| `tsconfig.json` | TypeScript 설정 (paths: @/* → ./src/*) |
-| `package.json` | 의존성 및 스크립트 |
-| `.env.local` | 환경변수 (NOTION_API_KEY, NOTION_DATABASE_ID) |
+| 파일              | 용도                                          |
+| ----------------- | --------------------------------------------- |
+| `components.json` | shadcn/ui 설정 (style: new-york, rsc: true)   |
+| `tsconfig.json`   | TypeScript 설정 (paths: @/_ → ./src/_)        |
+| `package.json`    | 의존성 및 스크립트                            |
+| `.env.local`      | 환경변수 (NOTION_API_KEY, NOTION_DATABASE_ID) |
 
 ---
 
@@ -71,13 +71,13 @@ src/
 
 ### 네이밍 규칙
 
-| 대상 | 규칙 | 예시 |
-|-----|------|------|
-| 파일명 | kebab-case | `user-profile.tsx`, `quote-item.tsx` |
-| 컴포넌트명 | PascalCase | `UserProfile`, `QuoteItem` |
-| 함수명 | camelCase | `getQuoteById`, `formatCurrency` |
-| 상수 | UPPER_SNAKE_CASE | `MAX_ITEMS`, `API_BASE_URL` |
-| 타입/인터페이스 | PascalCase | `Quote`, `QuoteItem`, `QuotePageProps` |
+| 대상            | 규칙             | 예시                                   |
+| --------------- | ---------------- | -------------------------------------- |
+| 파일명          | kebab-case       | `user-profile.tsx`, `quote-item.tsx`   |
+| 컴포넌트명      | PascalCase       | `UserProfile`, `QuoteItem`             |
+| 함수명          | camelCase        | `getQuoteById`, `formatCurrency`       |
+| 상수            | UPPER_SNAKE_CASE | `MAX_ITEMS`, `API_BASE_URL`            |
+| 타입/인터페이스 | PascalCase       | `Quote`, `QuoteItem`, `QuotePageProps` |
 
 ### 임포트 규칙
 
@@ -145,7 +145,7 @@ export default async function Page() {
 }
 
 // Client Component (별도 파일)
-'use client'
+;('use client')
 export function ClientComponent({ data }: Props) {
   const [state, setState] = useState(data)
   // ...
@@ -302,7 +302,7 @@ export const quoteSchema = z.object({
 })
 
 // 2. React Hook Form + Zod
-'use client'
+;('use client')
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 
@@ -315,7 +315,7 @@ export function QuoteForm() {
 }
 
 // 3. Server Action
-'use server'
+;('use server')
 export async function createQuote(formData: FormData) {
   const parsed = quoteSchema.safeParse(Object.fromEntries(formData))
   if (!parsed.success) {
@@ -331,13 +331,13 @@ export async function createQuote(formData: FormData) {
 
 ### 동시 수정 필요 파일
 
-| 수정 대상 | 연동 필요 파일 |
-|----------|--------------|
+| 수정 대상                        | 연동 필요 파일                       |
+| -------------------------------- | ------------------------------------ |
 | `src/app/globals.css` (CSS 변수) | 다크모드 색상 사용하는 모든 컴포넌트 |
-| `src/app/layout.tsx` (Provider) | Provider에 의존하는 컴포넌트 |
-| `src/lib/types/*.ts` (타입) | 해당 타입 사용하는 모든 파일 |
-| `src/lib/schemas/*.ts` (스키마) | 폼, API 검증 사용하는 파일 |
-| `components.json` | shadcn/ui 컴포넌트 재설치 필요 |
+| `src/app/layout.tsx` (Provider)  | Provider에 의존하는 컴포넌트         |
+| `src/lib/types/*.ts` (타입)      | 해당 타입 사용하는 모든 파일         |
+| `src/lib/schemas/*.ts` (스키마)  | 폼, API 검증 사용하는 파일           |
+| `components.json`                | shadcn/ui 컴포넌트 재설치 필요       |
 
 ### 새 기능 추가 시 체크리스트
 
@@ -394,12 +394,12 @@ npm run check-all
 
 ### 필수 테스트 항목
 
-| 테스트 유형 | 도구 | 검증 내용 |
-|-----------|------|----------|
-| 페이지 로드 | `browser_navigate` + `browser_snapshot` | 초기 렌더링 |
-| UI 상호작용 | `browser_click`, `browser_type` | 버튼, 폼 동작 |
-| API 연동 | `browser_network_requests` | API 호출 성공 |
-| 에러 검증 | `browser_console_messages` | 콘솔 에러 없음 |
+| 테스트 유형 | 도구                                    | 검증 내용      |
+| ----------- | --------------------------------------- | -------------- |
+| 페이지 로드 | `browser_navigate` + `browser_snapshot` | 초기 렌더링    |
+| UI 상호작용 | `browser_click`, `browser_type`         | 버튼, 폼 동작  |
+| API 연동    | `browser_network_requests`              | API 호출 성공  |
+| 에러 검증   | `browser_console_messages`              | 콘솔 에러 없음 |
 
 ### 테스트 미통과 시 작업 완료 금지
 
@@ -409,25 +409,25 @@ npm run check-all
 
 ### 절대 금지
 
-| 금지 항목 | 이유 |
-|----------|------|
-| Pages Router 사용 | App Router 전용 프로젝트 |
-| 동기적 params 접근 | Next.js 15.5.3 Breaking Change |
-| 인라인 스타일 | TailwindCSS 일관성 |
-| 하드코딩 색상 | 다크모드 미지원 |
-| Default export (페이지 제외) | 명시적 임포트 |
-| shadcn/ui 컴포넌트 직접 수정 | 업데이트 시 덮어쓰기 |
-| node_modules 의존성 직접 수정 | 패키지 관리 원칙 |
+| 금지 항목                     | 이유                           |
+| ----------------------------- | ------------------------------ |
+| Pages Router 사용             | App Router 전용 프로젝트       |
+| 동기적 params 접근            | Next.js 15.5.3 Breaking Change |
+| 인라인 스타일                 | TailwindCSS 일관성             |
+| 하드코딩 색상                 | 다크모드 미지원                |
+| Default export (페이지 제외)  | 명시적 임포트                  |
+| shadcn/ui 컴포넌트 직접 수정  | 업데이트 시 덮어쓰기           |
+| node_modules 의존성 직접 수정 | 패키지 관리 원칙               |
 
 ### 지양 사항
 
-| 지양 항목 | 대안 |
-|----------|------|
-| any 타입 | 명시적 타입 정의 |
+| 지양 항목           | 대안                  |
+| ------------------- | --------------------- |
+| any 타입            | 명시적 타입 정의      |
 | 깊은 props drilling | Context 또는 컴포지션 |
-| 300줄 초과 컴포넌트 | 서브 컴포넌트 분리 |
-| 복잡한 삼항 연산자 | cn() 함수 사용 |
-| console.log 잔류 | 배포 전 제거 |
+| 300줄 초과 컴포넌트 | 서브 컴포넌트 분리    |
+| 복잡한 삼항 연산자  | cn() 함수 사용        |
+| console.log 잔류    | 배포 전 제거          |
 
 ---
 
@@ -455,12 +455,12 @@ npx shadcn@latest add [component]  # 컴포넌트 추가
 
 ## 참조 문서
 
-| 문서 | 경로 |
-|------|------|
-| PRD | `/docs/PRD.md` |
-| ROADMAP | `/docs/ROADMAP.md` |
-| 스타일링 가이드 | `/docs/guides/styling-guide.md` |
-| 컴포넌트 패턴 | `/docs/guides/component-patterns.md` |
-| Next.js 15 가이드 | `/docs/guides/nextjs-15.md` |
-| 폼 처리 가이드 | `/docs/guides/forms-react-hook-form.md` |
-| Task 샘플 | `/tasks/000-sample.md` |
+| 문서              | 경로                                    |
+| ----------------- | --------------------------------------- |
+| PRD               | `/docs/PRD.md`                          |
+| ROADMAP           | `/docs/ROADMAP.md`                      |
+| 스타일링 가이드   | `/docs/guides/styling-guide.md`         |
+| 컴포넌트 패턴     | `/docs/guides/component-patterns.md`    |
+| Next.js 15 가이드 | `/docs/guides/nextjs-15.md`             |
+| 폼 처리 가이드    | `/docs/guides/forms-react-hook-form.md` |
+| Task 샘플         | `/tasks/000-sample.md`                  |

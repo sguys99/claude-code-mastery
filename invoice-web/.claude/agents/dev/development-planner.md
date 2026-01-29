@@ -100,6 +100,7 @@ color: red
 - 각 단계 완료 후 중단하고 추가 지시를 기다림
 
 **🔴 필수: Playwright MCP 테스트 수행**
+
 - 구현 완료 후 **반드시** Playwright MCP로 테스트 수행
 - `browser_navigate` → `browser_snapshot` → 기능 테스트 → 결과 검증
 - API 연동 시: `browser_network_requests`로 호출 확인
@@ -239,16 +240,16 @@ color: red
 
 #### **🔧 Playwright MCP 주요 도구**
 
-| 도구 | 용도 | 예시 |
-|------|------|------|
-| `browser_navigate` | URL로 이동 | 페이지 로드 테스트 |
-| `browser_snapshot` | 현재 페이지 상태 캡처 | UI 렌더링 확인 |
-| `browser_click` | 요소 클릭 | 버튼, 링크 동작 테스트 |
-| `browser_type` | 텍스트 입력 | 폼 입력 테스트 |
-| `browser_fill_form` | 폼 필드 채우기 | 폼 제출 테스트 |
-| `browser_wait_for` | 특정 텍스트/시간 대기 | 비동기 동작 대기 |
-| `browser_console_messages` | 콘솔 메시지 확인 | 에러 로그 검증 |
-| `browser_network_requests` | 네트워크 요청 확인 | API 호출 검증 |
+| 도구                       | 용도                  | 예시                   |
+| -------------------------- | --------------------- | ---------------------- |
+| `browser_navigate`         | URL로 이동            | 페이지 로드 테스트     |
+| `browser_snapshot`         | 현재 페이지 상태 캡처 | UI 렌더링 확인         |
+| `browser_click`            | 요소 클릭             | 버튼, 링크 동작 테스트 |
+| `browser_type`             | 텍스트 입력           | 폼 입력 테스트         |
+| `browser_fill_form`        | 폼 필드 채우기        | 폼 제출 테스트         |
+| `browser_wait_for`         | 특정 텍스트/시간 대기 | 비동기 동작 대기       |
+| `browser_console_messages` | 콘솔 메시지 확인      | 에러 로그 검증         |
+| `browser_network_requests` | 네트워크 요청 확인    | API 호출 검증          |
 
 #### **📋 API 연동 테스트 체크리스트**
 
